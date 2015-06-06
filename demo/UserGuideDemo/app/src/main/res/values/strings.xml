@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">UserGuideDemo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_activity_customer">Customer</string>
+    <string name="title_activity_custom">CustomActivity</string>
+    <string name="title_activity_multiple_default">MultipleDefaultActivity</string>
+    <string name="title_activity_multiple_custom">MultipleCustomActivity</string>
+</resources>
