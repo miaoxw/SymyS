@@ -1,0 +1,78 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/table_layout">
+
+    <!--<TableRow>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/circle0"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/blue" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/circle1"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/green"-->
+            <!--/>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/orange" />-->
+    <!--</TableRow>-->
+
+    <!--<TableRow>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/circle3"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/blue" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/circle4"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/green"-->
+            <!--android:tag=""/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/circle5"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/orange" />-->
+    <!--</TableRow>-->
+
+    <!--<TableRow>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/blue" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/circle7"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/green" />-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/orange" />-->
+    <!--</TableRow>-->
+
+
+</TableLayout>
