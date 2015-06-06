@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/background"
+            android:background="@drawable/background"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/background" />
+
+        <ImageButton
+            android:layout_width="196dp"
+            android:layout_height="58dp"
+            android:id="@+id/doneButton"
+            android:background="@drawable/done"
+            android:layout_marginBottom="47dp"
+            android:contentDescription="@string/doneButtonDescription"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/green"
+            android:background="@drawable/green"
+            android:layout_alignTop="@+id/red"
+            android:layout_alignLeft="@+id/doneButton"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="false" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/red"
+            android:background="@drawable/red"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="128dp" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/yellow"
+            android:background="@drawable/yellow"
+            android:layout_alignTop="@+id/purple2"
+            android:layout_alignLeft="@+id/red"
+            android:layout_alignStart="@+id/red" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/purple2"
+            android:background="@drawable/purple"
+            android:layout_marginTop="33dp"
+            android:layout_below="@+id/red"
+            android:layout_alignLeft="@+id/green2"
+            android:layout_alignStart="@+id/green2" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/blue"
+            android:background="@drawable/blue"
+            android:layout_marginTop="35dp"
+            android:layout_below="@+id/yellow"
+            android:layout_alignLeft="@+id/yellow"
+            android:layout_alignStart="@+id/yellow" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/orange"
+            android:background="@drawable/orange"
+            android:layout_marginTop="31dp"
+            android:layout_below="@+id/purple"
+            android:layout_alignLeft="@+id/purple"
+            android:layout_alignStart="@+id/purple" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/orange2"
+            android:background="@drawable/orange"
+            android:layout_alignTop="@+id/blue"
+            android:layout_alignLeft="@+id/purple2"
+            android:layout_alignStart="@+id/purple2" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/purple"
+            android:background="@drawable/purple"
+            android:layout_alignTop="@+id/yellow"
+            android:layout_alignLeft="@+id/green"
+            android:layout_alignStart="@+id/green" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/green2"
+            android:background="@drawable/green"
+            android:layout_above="@+id/purple2"
+            android:layout_alignRight="@+id/doneButton"
+            android:layout_alignEnd="@+id/doneButton" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:id="@+id/horizontalAxis"
+            android:background="@drawable/horizontal"
+            android:layout_above="@+id/blue"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="15dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="400dp"
+            android:id="@+id/verticalAxis"
+            android:background="@drawable/vertical"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp" />
+
+        <widget.RiseNumberTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/pointText"
+            android:layout_above="@+id/blue"
+            android:layout_alignRight="@+id/yellow"
+            android:layout_alignEnd="@+id/yellow"
+            android:layout_alignTop="@+id/yellow"
+            android:layout_alignLeft="@+id/yellow"
+            android:layout_alignStart="@+id/yellow" />
+
+    </RelativeLayout>
+</LinearLayout>
