@@ -15,7 +15,8 @@ public class CannotMixException extends GameLogicException
 		this.bobble2=bobble2;
 	}
 
-	@Override public String toString()
+	@Override
+	public String toString()
 	{
 		return bobble1+" and "+bobble2+" cannot be mixed!";
 	}
