@@ -39,6 +39,6 @@ public class MapGenerator
 		//For redundancy
 		ret=algorithmMatrix[gridSize][numOfAxis].swap(ret,(int)(step*1.5));
 
-		return null;
+		return ret;
 	}
 }
