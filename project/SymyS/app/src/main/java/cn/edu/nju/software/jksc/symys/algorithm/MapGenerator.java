@@ -26,15 +26,24 @@ public class MapGenerator
 		algorithmMatrix[6][4]=new Algorithm6x6_4();
 	}
 
-	public static int[][] generate(int gridSize,int numOfAxis,int numOfMix,int step) throws ParameterInvalidException
+	public static int[][] generate(int gridSize,int numOfAxis,int numOfMix,int step)
 	{
 		if(gridSize<3||gridSize>6||numOfAxis<1||numOfAxis>4)
-			throw new ParameterInvalidException("grid size: "+gridSize+", number of axis: "+numOfAxis);
+			return null;
 
 		if(numOfAxis==3)
 			numOfAxis=4;
 
-		int[][] ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix);
+		int[][] ret;
+		try
+		{
+			ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix);
+		}
+		catch(ParameterInvalidException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 
 		//For redundancy
 		ret=algorithmMatrix[gridSize][numOfAxis].swap(ret,(int)(step*1.5));
