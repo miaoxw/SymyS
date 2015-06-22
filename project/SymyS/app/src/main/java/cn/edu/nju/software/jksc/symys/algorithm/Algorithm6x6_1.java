@@ -18,16 +18,16 @@ final class Algorithm6x6_1 extends GeneratingAlgorithm
 	}
 
 	@Override
-	public int[][] generate(int mixCount) throws ParameterInvalidException
+	public Bobble[][] generate(int mixCount) throws ParameterInvalidException
 	{
 		if(mixCount<0||mixCount>maxMix)
 			throw new ParameterInvalidException("Invalid number of mix");
 
-		int[][] ret=base.clone();
+		Bobble[][] ret=new Bobble[base.length][base[0].length];
 
-		Hashtable<Integer,Integer> colorMapping=new Hashtable<>();
+		Hashtable<Integer,Bobble> colorMapping=new Hashtable<>();
 		for(int i=1;i<=colorCount;i++)
-			colorMapping.put(i,Bobble.getRandomPrimaryBobble().getColorID());
+			colorMapping.put(i,Bobble.getRandomPrimaryBobble());
 
 		//No solution for odd number
 		if(mixCount%2==1)
@@ -36,45 +36,45 @@ final class Algorithm6x6_1 extends GeneratingAlgorithm
 		{
 			while(colorMapping.get(1).equals(colorMapping.get(2)))
 			{
-				colorMapping.put(2,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(2,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(3).equals(colorMapping.get(4)))
 			{
-				colorMapping.put(4,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(4,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(5).equals(colorMapping.get(6)))
 			{
-				colorMapping.put(6,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(6,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(7).equals(colorMapping.get(8)))
 			{
-				colorMapping.put(8,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(8,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(9).equals(colorMapping.get(10)))
 			{
-				colorMapping.put(10,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(10,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(11).equals(colorMapping.get(12)))
 			{
-				colorMapping.put(12,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(12,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(13).equals(colorMapping.get(14)))
 			{
-				colorMapping.put(14,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(14,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(15).equals(colorMapping.get(16)))
 			{
-				colorMapping.put(16,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(16,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(17).equals(colorMapping.get(18)))
 			{
-				colorMapping.put(18,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(18,Bobble.getRandomPrimaryBobble());
 			}
 		}
 
 		for(int i=0;i<ret.length;i++)
 			for(int j=0;j<ret[i].length;i++)
-				ret[i][j]=colorMapping.get(ret[i][j]);
+				ret[i][j]=colorMapping.get(base[i][j]);
 
 		return ret;
 	}

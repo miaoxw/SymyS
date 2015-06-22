@@ -130,7 +130,7 @@ public class Bobble
 			return true;
 		}
 		else
-			throw new CannotMixException(this,anotherBobble);
+			return false;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package cn.edu.nju.software.jksc.symys.algorithm;
 
 import java.util.Random;
 
+import cn.edu.nju.software.jksc.symys.common.Bobble;
 import cn.edu.nju.software.jksc.symys.common.exception.ParameterInvalidException;
 
 /**
@@ -16,14 +17,14 @@ abstract class GeneratingAlgorithm
 
 	private static Random random=new Random();
 
-	public abstract int[][] generate(int mixCount) throws ParameterInvalidException;
+	public abstract Bobble[][] generate(int mixCount) throws ParameterInvalidException;
 
 	public GeneratingAlgorithm(int colorCount)
 	{
 		this.colorCount=colorCount;
 	}
 
-	public static int[][] swap(int[][] src,int step)
+	public static Bobble[][] swap(Bobble[][] src,int step)
 	{
 		int swapIndex=src[0].length;
 		for(int i=1;i<=step*1.5;i++)
@@ -32,17 +33,17 @@ abstract class GeneratingAlgorithm
 			int swapY=random.nextInt(swapIndex);
 			if(random.nextFloat()>0.5f)
 			{
-				int temp=src[swapX][swapY];
+				Bobble temp=src[swapX][swapY];
 				src[swapX][swapY]=src[swapX+1][swapY];
 				src[swapX+1][swapY]=temp;
 			}
 			else
 			{
-				int temp=src[swapX][swapY];
+				Bobble temp=src[swapX][swapY];
 				src[swapX][swapY]=src[swapX][swapY+1];
 				src[swapX][swapY+1]=temp;
 			}
 		}
-		return src.clone();
+		return src;
 	}
 }

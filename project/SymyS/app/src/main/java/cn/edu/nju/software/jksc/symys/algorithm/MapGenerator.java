@@ -1,5 +1,6 @@
 package cn.edu.nju.software.jksc.symys.algorithm;
 
+import cn.edu.nju.software.jksc.symys.common.Bobble;
 import cn.edu.nju.software.jksc.symys.common.exception.ParameterInvalidException;
 
 /**
@@ -26,7 +27,7 @@ public class MapGenerator
 		algorithmMatrix[6][4]=new Algorithm6x6_4();
 	}
 
-	public static int[][] generate(int gridSize,int numOfAxis,int numOfMix,int step)
+	public static Bobble[][] generate(int gridSize,int numOfAxis,int numOfMix,int step)
 	{
 		if(gridSize<3||gridSize>6||numOfAxis<1||numOfAxis>4)
 			return null;
@@ -34,7 +35,7 @@ public class MapGenerator
 		if(numOfAxis==3)
 			numOfAxis=4;
 
-		int[][] ret;
+		Bobble[][] ret;
 		try
 		{
 			ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix);
@@ -46,7 +47,7 @@ public class MapGenerator
 		}
 
 		//For redundancy
-		ret=algorithmMatrix[gridSize][numOfAxis].swap(ret,(int)(step*1.5));
+		algorithmMatrix[gridSize][numOfAxis].swap(ret,(int)(step*1.5));
 
 		return ret;
 	}

@@ -18,16 +18,16 @@ final class Algorithm6x6_2 extends GeneratingAlgorithm
 	}
 
 	@Override
-	public int[][] generate(int mixCount) throws ParameterInvalidException
+	public Bobble[][] generate(int mixCount) throws ParameterInvalidException
 	{
 		if(mixCount<0||mixCount>maxMix)
 			throw new ParameterInvalidException("Invalid number of mix");
 
-		int[][] ret=base.clone();
+		Bobble[][] ret=new Bobble[base.length][base[0].length];
 
-		Hashtable<Integer,Integer> colorMapping=new Hashtable<>();
+		Hashtable<Integer,Bobble> colorMapping=new Hashtable<>();
 		for(int i=1;i<=colorCount;i++)
-			colorMapping.put(i,Bobble.getRandomPrimaryBobble().getColorID());
+			colorMapping.put(i,Bobble.getRandomPrimaryBobble());
 
 		//No solution for num-4-multiples
 		if(mixCount%4!=0)
@@ -36,21 +36,21 @@ final class Algorithm6x6_2 extends GeneratingAlgorithm
 		{
 			while(colorMapping.get(2).equals(colorMapping.get(3)))
 			{
-				colorMapping.put(3,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(3,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(4).equals(colorMapping.get(5)))
 			{
-				colorMapping.put(5,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(5,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(7).equals(colorMapping.get(8)))
 			{
-				colorMapping.put(8,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(8,Bobble.getRandomPrimaryBobble());
 			}
 		}
 
 		for(int i=0;i<ret.length;i++)
 			for(int j=0;j<ret[i].length;i++)
-				ret[i][j]=colorMapping.get(ret[i][j]);
+				ret[i][j]=colorMapping.get(base[i][j]);
 
 		return ret;
 	}

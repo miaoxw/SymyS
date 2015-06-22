@@ -18,52 +18,52 @@ final class Algorithm5x5_1 extends GeneratingAlgorithm
 	}
 
 	@Override
-	public int[][] generate(int mixCount) throws ParameterInvalidException
+	public Bobble[][] generate(int mixCount) throws ParameterInvalidException
 	{
 		if(mixCount<0||mixCount>maxMix)
 			throw new ParameterInvalidException("Invalid number of mix");
 
-		int[][] ret=base.clone();
+		Bobble[][] ret=new Bobble[base.length][base[0].length];
 
-		Hashtable<Integer,Integer> colorMapping=new Hashtable<>();
+		Hashtable<Integer,Bobble> colorMapping=new Hashtable<>();
 		for(int i=1;i<=colorCount;i++)
-			colorMapping.put(i,Bobble.getRandomPrimaryBobble().getColorID());
+			colorMapping.put(i,Bobble.getRandomPrimaryBobble());
 
 		if(mixCount>=1&&mixCount<=12)
 		{
 			while(colorMapping.get(1).equals(colorMapping.get(2)))
 			{
-				colorMapping.put(2,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(2,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(6).equals(colorMapping.get(7)))
 			{
-				colorMapping.put(7,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(7,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(4).equals(colorMapping.get(5)))
 			{
-				colorMapping.put(5,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(5,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(9).equals(colorMapping.get(10)))
 			{
-				colorMapping.put(10,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(10,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(3).equals(colorMapping.get(8)))
 			{
-				colorMapping.put(8,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(8,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(11).equals(colorMapping.get(12)))
 			{
-				colorMapping.put(12,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(12,Bobble.getRandomPrimaryBobble());
 			}
 			while(colorMapping.get(14).equals(colorMapping.get(15)))
 			{
-				colorMapping.put(15,Bobble.getRandomPrimaryBobble().getColorID());
+				colorMapping.put(15,Bobble.getRandomPrimaryBobble());
 			}
 		}
 
 		for(int i=0;i<ret.length;i++)
 			for(int j=0;j<ret[i].length;j++)
-				ret[i][j]=colorMapping.get(ret[i][j]);
+				ret[i][j]=colorMapping.get(base[i][j]);
 
 		return ret;
 	}
