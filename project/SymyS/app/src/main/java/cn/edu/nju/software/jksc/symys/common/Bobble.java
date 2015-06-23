@@ -22,7 +22,6 @@ public class Bobble
 	public static final int GREEN_INDEX=6;
 	public static final int BLOCK_INDEX=-1;
 	public static final int BLANK_INDEX=0;
-
 	private Bobble(int color)
 	{
 		this.color=color;

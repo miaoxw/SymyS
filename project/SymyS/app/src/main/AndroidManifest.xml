@@ -10,6 +10,15 @@
         <activity
             android:name=".startMenu"
             android:label="@string/title_activity_start_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GamePanel"
+            android:label="@string/title_activity_game_panel" >
         </activity>
     </application>
 
