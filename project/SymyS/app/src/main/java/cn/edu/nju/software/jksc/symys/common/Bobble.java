@@ -4,6 +4,7 @@ import java.util.Random;
 
 import cn.edu.nju.software.jksc.symys.R;
 import cn.edu.nju.software.jksc.symys.common.exception.CannotMixException;
+import cn.edu.nju.software.jksc.symys.common.exception.CannotSwapException;
 
 /**
  * Created by 缪晓伟 on 2015/6/16.
@@ -113,6 +114,19 @@ public class Bobble
 		return color>0&&color<=6;
 	}
 
+	public boolean swapWith(Bobble anotherBobble)// throws CannotSwapException
+	{
+		if(isBobble()&&anotherBobble.isBobble())
+		{
+			int color=this.color;
+			this.color=anotherBobble.color;
+			anotherBobble.color=color;
+			return true;
+		}
+		else
+			return false;
+	}
+
 	/**
 	 * Notice: This method will cause some side effects to the parameter.
 	 *
@@ -120,7 +134,7 @@ public class Bobble
 	 * @return true if the mix succeeds.
 	 * @throws CannotMixException When any one of the bobbles cannot participate in the mixing, this exception is thrown.
 	 */
-	public boolean mixWith(Bobble anotherBobble) throws CannotMixException
+	public boolean mixWith(Bobble anotherBobble)// throws CannotMixException
 	{
 		if(isPrimary()&&anotherBobble.isPrimary())
 		{
