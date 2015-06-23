@@ -27,10 +27,10 @@ abstract class GeneratingAlgorithm
 	public static Bobble[][] swap(Bobble[][] src,int step)
 	{
 		int swapIndex=src[0].length;
-		for(int i=1;i<=step*1.5;i++)
+		for(int i=1;i<=step;i++)
 		{
-			int swapX=random.nextInt(swapIndex);
-			int swapY=random.nextInt(swapIndex);
+			int swapX=random.nextInt(swapIndex-1);
+			int swapY=random.nextInt(swapIndex-1);
 			if(random.nextFloat()>0.5f)
 			{
 				Bobble temp=src[swapX][swapY];
