@@ -53,7 +53,7 @@ final class Algorithm4x4_1 extends GeneratingAlgorithm
 		}
 
 		for(int i=0;i<ret.length;i++)
-			for(int j=0;j<ret[i].length;i++)
+			for(int j=0;j<ret[i].length;j++)
 				ret[i][j]=colorMapping.get(base[i][j]);
 
 		return ret;
