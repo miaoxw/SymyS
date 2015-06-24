@@ -41,7 +41,7 @@ final class Algorithm3x3_2 extends GeneratingAlgorithm
 
 		for(int i=0;i<ret.length;i++)
 			for(int j=0;j<ret[i].length;j++)
-				ret[i][j]=colorMapping.get(base[i][j]);
+				ret[i][j]=colorMapping.get(base[i][j]).clone();
 
 		return ret;
 	}
