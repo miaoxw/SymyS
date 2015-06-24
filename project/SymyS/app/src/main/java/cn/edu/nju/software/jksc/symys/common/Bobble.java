@@ -9,7 +9,7 @@ import cn.edu.nju.software.jksc.symys.common.exception.CannotSwapException;
 /**
  * Created by 缪晓伟 on 2015/6/16.
  */
-public class Bobble
+public class Bobble implements Cloneable
 {
 	private int color;
 
@@ -161,5 +161,11 @@ public class Bobble
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public Bobble clone()
+	{
+		return new Bobble(this.color);
 	}
 }

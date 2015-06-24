@@ -74,7 +74,7 @@ final class Algorithm6x6_1 extends GeneratingAlgorithm
 
 		for(int i=0;i<ret.length;i++)
 			for(int j=0;j<ret[i].length;j++)
-				ret[i][j]=colorMapping.get(base[i][j]);
+				ret[i][j]=colorMapping.get(base[i][j]).clone();
 
 		return ret;
 	}
