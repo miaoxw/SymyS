@@ -1,36 +1,42 @@
-package cn.edu.nju.software.jksc.symys;
+package cn.edu.nju.software.jksc.symys.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+
+import cn.edu.nju.software.jksc.symys.GamePanelController;
+import cn.edu.nju.software.jksc.symys.R;
+import cn.edu.nju.software.jksc.symys.algorithm.MapGenerator;
+import cn.edu.nju.software.jksc.symys.common.Bobble;
 
 
-public class startMenu extends Activity {
+public class GamePanel extends Activity {
+
+
+
+    GamePanelController gc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_menu);
+        setContentView(R.layout.activity_game_panel);
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(startMenu.this, GamePanel.class);
-                startActivity(intent);
-            }
-        });
+        TableLayout tableLayout = (TableLayout)findViewById(R.id.main_panel);
+        Bobble[][] colors = MapGenerator.generate(4,1,0,4);
+        gc = new GamePanelController(colors,tableLayout,this);
+        gc.init();
+
+
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_start_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_game_panel, menu);
         return true;
     }
 
