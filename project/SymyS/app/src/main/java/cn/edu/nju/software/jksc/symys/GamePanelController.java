@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,28 +47,61 @@ public class GamePanelController {
     public void swap(int x, int y, int position) {
         int x2 = x;
         int y2 = y;
+        float animationX =0;
+        float animationY =0;
+
         switch (position) {
             case LEFT:
+                animationX = 0-imageViews[x][y].getWidth();
                 y2--;
                 break;
             case RIGHT:
+                animationX = imageViews[x][y].getWidth();
                 y2++;
                 break;
             case UP:
+                animationY = 0-imageViews[x][y].getHeight();
                 x2--;
                 break;
             case DOWN:
+                animationY = imageViews[x][y].getHeight();
                 x2++;
                 break;
         }
 
 
+        final int xx= x;
+        final int yy = y;
+        final int xx2 = x2;
+        final int yy2 = y2;
+
         if (x2 >= 0 && y2 >= 0 && x2 < col_size && y2 < col_size) {
             if(bobbles[x][y].getColorID()!=bobbles[x2][y2].getColorID()){
-                Bobble temp = bobbles[x][y];
-                bobbles[x][y] = bobbles[x2][y2];
-                bobbles[x2][y2] = temp;
-                reset();
+                Animation translateAnimation1=new TranslateAnimation(0,animationX,0,animationY);
+                translateAnimation1.setDuration(300);
+                Animation translateAnimation2=new TranslateAnimation(0,0-animationX,0,0-animationY);
+                translateAnimation2.setDuration(300);
+                imageViews[x][y].startAnimation(translateAnimation1);
+                imageViews[x2][y2].startAnimation(translateAnimation2);
+                translateAnimation1.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Bobble temp = bobbles[xx][yy];
+                        bobbles[xx][yy] = bobbles[xx2][yy2];
+                        bobbles[xx2][yy2] = temp;
+                        reset();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
             }
         }
 
@@ -91,10 +126,9 @@ public class GamePanelController {
         for (int i = 0; i < col_size; ++i) {
             TableRow tableRow = new TableRow(activity);
             for (int j = 0; j < col_size; ++j) {
-                final ImageView imageView = ImageViewFactory.getImageView(bobbles[i][j], activity);
-
-
+                final ImageView imageView = ImageViewFactory.getImageView(bobbles[i][j], activity,col_size);
                 tableRow.addView(imageView);
+                tableRow.setWeightSum(1);
                 imageViews[i][j] = imageView;
             }
             layout.addView(tableRow);
@@ -208,12 +242,15 @@ public class GamePanelController {
 
         for (int ii = 0; ii < col_size; ++ii) {
             for (int jj = 0; jj < col_size; ++jj) {
+                imageViews[ii][jj].setOnTouchListener(null);
                 imageViews[ii][jj].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         reset();
                     }
                 });
+
+
             }
         }
 
