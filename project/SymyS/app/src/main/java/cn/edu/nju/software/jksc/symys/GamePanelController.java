@@ -7,9 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ import cn.edu.nju.software.jksc.symys.common.Bobble;
  */
 public class GamePanelController {
     Bobble[][] bobbles;
-    TableLayout layout;
+    FrameLayout layout;
     Activity activity;
     int col_size;
     ImageView[][] imageViews;
@@ -28,14 +27,14 @@ public class GamePanelController {
     final int NORMAL = 0;
     final int TO_MIX = 1;
 
-    final int LEFT = -1;
+    final int LEFT = 0;
     final int RIGHT = 1;
-    final int UP = -2;
-    final int DOWN = 2;
+    final int UP = 2;
+    final int DOWN = 3;
 
-    final int NO_SWAP =0;
+    final int NO_SWAP = 0;
 
-    public GamePanelController(Bobble[][] bobbles, TableLayout layout, Activity activity) {
+    public GamePanelController(Bobble[][] bobbles, FrameLayout layout, Activity activity) {
         this.bobbles = bobbles;
         col_size = bobbles.length;
         imageViews = new ImageView[col_size][col_size];
@@ -44,15 +43,40 @@ public class GamePanelController {
     }
 
 
-    public void swap(int x, int y, int position) {
+    private void before_swap(int x, int y, int position) {
         int x2 = x;
         int y2 = y;
-        float animationX =0;
-        float animationY =0;
+
+        int[] x_delta = new int[]{0, 0, -1, 1};
+        int[] y_delta = new int[]{-1, 1, 0, 0};
+
+
+        for (int i = 0; i < 4; i++) {
+            if (i != position) {
+                x2 = x + x_delta[i];
+                y2 = y + y_delta[i];
+                resetImageViewSize(x2, y2);
+            }
+        }
+
+        x2 = x + x_delta[position];
+        y2 = y + y_delta[position];
+        if (x2 >= 0 && y2 >= 0 && x2 < col_size && y2 < col_size) {
+            if (bobbles[x][y].getColorID() != bobbles[x2][y2].getColorID() && bobbles[x2][y2].getColorID() > 0) {
+                zoom2(x2, y2, 1.05f);
+            }
+        }
+    }
+
+    private void swap(int x, int y, int position) {
+        int x2 = x;
+        int y2 = y;
+        float animationX = 0;
+        float animationY = 0;
 
         switch (position) {
             case LEFT:
-                animationX = 0-imageViews[x][y].getWidth();
+                animationX = 0 - imageViews[x][y].getWidth();
                 y2--;
                 break;
             case RIGHT:
@@ -60,7 +84,7 @@ public class GamePanelController {
                 y2++;
                 break;
             case UP:
-                animationY = 0-imageViews[x][y].getHeight();
+                animationY = 0 - imageViews[x][y].getHeight();
                 x2--;
                 break;
             case DOWN:
@@ -70,17 +94,19 @@ public class GamePanelController {
         }
 
 
-        final int xx= x;
+        final int xx = x;
         final int yy = y;
         final int xx2 = x2;
         final int yy2 = y2;
 
         if (x2 >= 0 && y2 >= 0 && x2 < col_size && y2 < col_size) {
-            if(bobbles[x][y].getColorID()!=bobbles[x2][y2].getColorID()){
-                Animation translateAnimation1=new TranslateAnimation(0,animationX,0,animationY);
+            if (bobbles[x][y].getColorID() != bobbles[x2][y2].getColorID() && bobbles[x2][y2].getColorID() > 0) {
+                Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
                 translateAnimation1.setDuration(300);
-                Animation translateAnimation2=new TranslateAnimation(0,0-animationX,0,0-animationY);
+                Animation translateAnimation2 = new TranslateAnimation(0, 0 - animationX, 0, 0 - animationY);
                 translateAnimation2.setDuration(300);
+                zoom2(x,y,1.05f);
+                zoom2(x2,y2,1.05f);
                 imageViews[x][y].startAnimation(translateAnimation1);
                 imageViews[x2][y2].startAnimation(translateAnimation2);
                 translateAnimation1.setAnimationListener(new Animation.AnimationListener() {
@@ -91,6 +117,12 @@ public class GamePanelController {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
+                        imageViews[xx][yy].clearAnimation();
+                        imageViews[xx2][yy2].clearAnimation();
+
+                        resetImageViewSize(xx, yy);
+                        resetImageViewSize(xx2, yy2);
+
                         Bobble temp = bobbles[xx][yy];
                         bobbles[xx][yy] = bobbles[xx2][yy2];
                         bobbles[xx2][yy2] = temp;
@@ -112,6 +144,7 @@ public class GamePanelController {
 
         if (bobbles[x1][y1].mixWith(bobbles[x2][y2])) {
             reset();
+
         }
     }
 
@@ -124,14 +157,13 @@ public class GamePanelController {
     //初始化
     public void init() {
         for (int i = 0; i < col_size; ++i) {
-            TableRow tableRow = new TableRow(activity);
             for (int j = 0; j < col_size; ++j) {
-                final ImageView imageView = ImageViewFactory.getImageView(bobbles[i][j], activity,col_size);
-                tableRow.addView(imageView);
-                tableRow.setWeightSum(1);
+                final ImageView imageView = ImageViewFactory.getImageView(bobbles[i][j], activity, col_size, i, j);
+
                 imageViews[i][j] = imageView;
+                layout.addView(imageView);
             }
-            layout.addView(tableRow);
+
         }
         reset();
     }
@@ -146,6 +178,8 @@ public class GamePanelController {
                 imageViews[i][j].setImageResource(bobbles[i][j].getPicID());
                 resetImageViewSize(x, y);
 
+
+                //有关混合的监听
                 if (bobbles[i][j].isPrimary() && getMixNeighbour(i, j).size() > 0) {
                     imageViews[x][y].setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -162,39 +196,56 @@ public class GamePanelController {
                     });
                 }
 
-                imageViews[i][j].setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getActionMasked()) {
-                            case MotionEvent.ACTION_DOWN://按下的时候
-                                break;
-                            case MotionEvent.ACTION_MOVE://移动
-                                break;
-                            case MotionEvent.ACTION_UP://开始移动或者取消
-                                float touchX = event.getX();
-                                float touchY = event.getY();
+                //有关交换的监听
+                if (bobbles[i][j].getColorID() > 0) {
+                    imageViews[i][j].setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            float touchX = event.getX();
+                            float touchY = event.getY();
 
-                                float deltaX = touchX - v.getWidth() / 2;
-                                float deltaY = touchY - v.getHeight() / 2;
-                                if (Math.abs(deltaX) > Math.abs(deltaY)) {  //左右
-                                    if (deltaX > v.getHeight()) {  //右
-                                        swap(x, y, RIGHT);
-                                    }else if(deltaX < 0 - v.getHeight()) {  //左
-                                        swap(x, y, LEFT);
+                            float deltaX = touchX - v.getWidth() / 2;
+                            float deltaY = touchY - v.getHeight() / 2;
+                            switch (event.getActionMasked()) {
+                                case MotionEvent.ACTION_DOWN://按下的时候
+                                    break;
+                                case MotionEvent.ACTION_MOVE://移动
+//                                    if (Math.abs(deltaX) > Math.abs(deltaY)) {  //左右
+//                                        if (deltaX > v.getHeight()) {  //右
+//                                            before_swap(x, y, RIGHT);
+//                                        } else if (deltaX < 0 - v.getHeight()) {  //左
+//                                            before_swap(x, y, LEFT);
+//                                        }
+//                                    } else {  //上下
+//                                        if (deltaY > v.getHeight()) {  //下
+//                                            before_swap(x, y, DOWN);
+//                                        } else if (deltaY < 0 - v.getHeight()) {  //上
+//                                            before_swap(x, y, UP);
+//                                        }
+//                                    }
+                                    break;
+                                case MotionEvent.ACTION_UP://开始移动或者取消
+
+                                    if (Math.abs(deltaX) > Math.abs(deltaY)) {  //左右
+                                        if (deltaX > v.getHeight()) {  //右
+                                            swap(x, y, RIGHT);
+                                        } else if (deltaX < 0 - v.getHeight()) {  //左
+                                            swap(x, y, LEFT);
+                                        }
+                                    } else {  //上下
+                                        if (deltaY > v.getHeight()) {  //下
+                                            swap(x, y, DOWN);
+                                        } else if (deltaY < 0 - v.getHeight()) {  //上
+                                            swap(x, y, UP);
+                                        }
                                     }
-                                } else {  //上下
-                                    if (deltaY > v.getHeight()) {  //下
-                                        swap(x, y, DOWN);
-                                    }else if (deltaY < 0 - v.getHeight()) {  //上
-                                        swap(x, y, UP);
-                                    }
-                                }
-                                break;
-                            case MotionEvent.ACTION_OUTSIDE:
+                                    break;
+                                case MotionEvent.ACTION_OUTSIDE:
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                });
+                    });
+                }
 
             }
         }
@@ -282,6 +333,11 @@ public class GamePanelController {
     private void zoom(int x, int y) {
         imageViews[x][y].setScaleX(1.1f);
         imageViews[x][y].setScaleY(1.1f);
+    }
+
+    private void zoom2(int x, int y, float s) {
+        imageViews[x][y].setScaleX(s);
+        imageViews[x][y].setScaleY(s);
     }
 
     private void resetImageViewSize(int x, int y) {

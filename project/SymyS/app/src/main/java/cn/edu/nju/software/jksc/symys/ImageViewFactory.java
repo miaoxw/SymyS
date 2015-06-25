@@ -19,7 +19,7 @@ import cn.edu.nju.software.jksc.symys.common.Bobble;
  */
 public class ImageViewFactory {
 
-    public static ImageView getImageView(Bobble color, Context context, int count) {
+    public static ImageView getImageView(Bobble color, Context context, int count,int i ,int j) {
         ImageView imageView = new ImageView(context);
         imageView.setImageResource(color.getPicID());
 
@@ -36,6 +36,9 @@ public class ImageViewFactory {
 
         params.height = (int) (width * 0.9 / count);
         params.width = (int) (width * 0.9 / count);
+
+        imageView.setX((float) (j*width * 0.9 / count));
+        imageView.setY((float) (i*width * 0.9 / count));
 
         imageView.setLayoutParams(params);
         imageView.setPadding(5, 5, 5, 5);

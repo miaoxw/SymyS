@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 
@@ -24,9 +25,9 @@ public class GamePanel extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_panel);
 
-        TableLayout tableLayout = (TableLayout)findViewById(R.id.main_panel);
+        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.main_panel);
         Bobble[][] colors = MapGenerator.generate(4,1,0,4);
-        gc = new GamePanelController(colors,tableLayout,this);
+        gc = new GamePanelController(colors,frameLayout,this);
         gc.init();
 
 
