@@ -300,7 +300,7 @@ public class GamePanelController {
 
     private ArrayList<Pos> getMixNeighbour(int x, int y) {
         ArrayList<Pos> poses = new ArrayList<>();
-        Pos[] poss = new Pos[4];
+        Pos[] poss = new Pos[4 ];
         poss[0] = new Pos(x - 1, y);
         poss[1] = new Pos(x + 1, y);
         poss[2] = new Pos(x, y - 1);
