@@ -27,7 +27,7 @@ public class GamePanel extends Activity {
         setContentView(R.layout.activity_game_panel);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.main_panel);
-        Bobble[][] colors = MapGenerator.generate(4,1,0,4);
+        Bobble[][] colors = MapGenerator.generate(6,1,0,400);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
 
         frameLayout.setMinimumHeight(params.width);

@@ -36,22 +36,23 @@ public class MapGenerator
 			numOfAxis=4;
 
 		Bobble[][] ret;
-		do
+		try
 		{
-			try
-			{
-				ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix);
-			}
-			catch(ParameterInvalidException e)
-			{
-				e.printStackTrace();
-				return null;
-			}
-		//In case of initial symmetrical situation
-		}while(AxisChecker.countAxis(ret)==numOfAxis);
+			ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix);
+		}
+		catch(ParameterInvalidException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+
 
 		//For redundancy
-		algorithmMatrix[gridSize][numOfAxis].swap(ret,(int)(step/1.5f));
+		do
+		{
+			//In case of initial symmetrical situation
+			algorithmMatrix[gridSize][numOfAxis].swap(ret,(int)(step/1.5f));
+		}while(AxisChecker.countAxis(ret)==numOfAxis);
 
 		return ret;
 	}
