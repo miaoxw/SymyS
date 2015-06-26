@@ -10,15 +10,20 @@
         <activity
             android:name=".activities.startMenu"
             android:label="@string/title_activity_start_menu" >
+
+        </activity>
+        <activity
+            android:name=".activities.GamePanel"
+            android:label="@string/title_activity_game_panel" >
+        </activity>
+        <activity
+            android:name=".activities.SelectLevelActivity"
+            android:label="@string/title_activity_select_level" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.GamePanel"
-            android:label="@string/title_activity_game_panel" >
         </activity>
     </application>
 
