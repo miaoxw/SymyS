@@ -27,10 +27,11 @@ public class GamePanel extends Activity {
         setContentView(R.layout.activity_game_panel);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.main_panel);
-        Bobble[][] colors = MapGenerator.generate(6,1,0,400);
+        Bobble[][] colors = MapGenerator.generate(6,1,0,40);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
 
         frameLayout.setMinimumHeight(params.width);
+
 
         gc = new GamePanelController(colors,frameLayout,this);
         gc.init();
@@ -40,7 +41,7 @@ public class GamePanel extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_panel, menu);
+//        getMenuInflater().inflate(R.menu.menu_game_panel, menu);
         return true;
     }
 

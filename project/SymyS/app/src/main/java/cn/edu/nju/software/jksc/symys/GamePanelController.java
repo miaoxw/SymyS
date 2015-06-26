@@ -37,6 +37,7 @@ public class GamePanelController {
     final int DOWN = 3;
 
     final int NO_SWAP = 0;
+
     private long mix_time = 100;
     private long swap_time = 150;
 
@@ -291,6 +292,7 @@ public class GamePanelController {
                     });
                 }
 
+
             }
         }
     }
@@ -298,7 +300,7 @@ public class GamePanelController {
 
     private ArrayList<Pos> getMixNeighbour(int x, int y) {
         ArrayList<Pos> poses = new ArrayList<>();
-        Pos[] poss = new Pos[col_size];
+        Pos[] poss = new Pos[4];
         poss[0] = new Pos(x - 1, y);
         poss[1] = new Pos(x + 1, y);
         poss[2] = new Pos(x, y - 1);

@@ -5,6 +5,7 @@ package cn.edu.nju.software.jksc.symys;
  */
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -32,13 +33,14 @@ public class ImageViewFactory {
         // always use the portrait dimensions to do the scaling calculations so we always get a portrait shaped
         // web dialog
         int width = metrics.widthPixels < metrics.heightPixels ? metrics.widthPixels : metrics.heightPixels;
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) (width * 0.9 / count),(int) (width * 0.9 / count));
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) (width * 0.8 / count),(int) (width * 0.8 / count));
 
 
-        imageView.setX((float) (j * width * 0.9 / count));
-        imageView.setY((float) (i * width * 0.9 / count));
 
-        int pad = (int) (width * 0.9 * 0.06 / count);
+        imageView.setX((float) (j * width * 0.8 / count));
+        imageView.setY((float) (i * width * 0.8 / count));
+
+        int pad = (int) (width * 0.8 * 0.06 / count);
         imageView.setLayoutParams(params);
         imageView.setPadding(pad, pad, pad, pad);
         return imageView;
@@ -54,6 +56,7 @@ public class ImageViewFactory {
         // web dialog
         int width = metrics.widthPixels < metrics.heightPixels ? metrics.widthPixels : metrics.heightPixels;
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width,width);
+
 
 
         imageView.setLayoutParams(params);
