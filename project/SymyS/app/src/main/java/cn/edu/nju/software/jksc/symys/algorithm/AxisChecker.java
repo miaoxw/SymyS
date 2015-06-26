@@ -28,7 +28,7 @@ public class AxisChecker
 		int gridSize=src.length;
 		for(int i=0;i<gridSize;i++)
 			for(int j=0;j<gridSize/2;j++)
-				if(!src[i][j].equals(src[i][gridSize-j]))
+				if(!src[i][j].equals(src[i][gridSize-j-1]))
 					return false;
 		return true;
 	}
@@ -38,7 +38,7 @@ public class AxisChecker
 		int gridSize=src.length;
 		for(int i=0;i<gridSize/2;i++)
 			for(int j=0;j<gridSize;j++)
-				if(!src[i][j].equals(src[gridSize-i][j]))
+				if(!src[i][j].equals(src[gridSize-i-1][j]))
 					return false;
 		return true;
 	}
