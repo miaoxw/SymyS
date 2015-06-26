@@ -17,7 +17,13 @@ abstract class GeneratingAlgorithm
 
 	private static Random random=new Random();
 
-	public abstract Bobble[][] generate(int mixCount) throws ParameterInvalidException;
+	public abstract Bobble[][] generate(int mixCount,int colorCount) throws ParameterInvalidException;
+
+	@Deprecated
+	public Bobble[][] generate(int mixCount) throws ParameterInvalidException
+	{
+		return generate(mixCount,3);
+	}
 
 	public GeneratingAlgorithm(int colorCount)
 	{

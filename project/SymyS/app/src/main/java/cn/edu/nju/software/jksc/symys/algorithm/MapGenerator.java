@@ -27,7 +27,7 @@ public class MapGenerator
 		algorithmMatrix[6][4]=new Algorithm6x6_4();
 	}
 
-	public static Bobble[][] generate(int gridSize,int numOfAxis,int numOfMix,int step)
+	public static Bobble[][] generate(int gridSize,int numOfAxis,int numOfMix,int step,int colorNum)
 	{
 		if(gridSize<3||gridSize>6||numOfAxis<1||numOfAxis>4)
 			return null;
@@ -38,7 +38,7 @@ public class MapGenerator
 		Bobble[][] ret;
 		try
 		{
-			ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix);
+			ret=algorithmMatrix[gridSize][numOfAxis].generate(numOfMix,colorNum);
 		}
 		catch(ParameterInvalidException e)
 		{
