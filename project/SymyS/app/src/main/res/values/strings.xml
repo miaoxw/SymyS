@@ -4,4 +4,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_start_menu">startMenu</string>
     <string name="title_activity_game_panel">GamePanel</string>
+    <string name="title_activity_select_level">SelectLevelActivity</string>
+    <drawable name="clr_normal">#ffffb1aa</drawable>
+    <drawable name="clr_pressed">#ff6e8ea4</drawable>
+    <drawable name="pass_done">#ff38aa36</drawable>
 </resources>
