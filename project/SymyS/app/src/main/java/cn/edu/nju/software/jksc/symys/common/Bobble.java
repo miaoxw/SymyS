@@ -18,7 +18,6 @@ public class Bobble implements Cloneable
 	public static final int RED_INDEX=1;
 	public static final int YELLOW_INDEX=2;
 	public static final int BLUE_INDEX=4;
-	public static final int NEW_COLOR_INDEX=8;
 	public static final int ORANGE_INDEX=3;
 	public static final int PURPLE_INDEX=5;
 	public static final int GREEN_INDEX=6;
@@ -50,11 +49,6 @@ public class Bobble implements Cloneable
 		return new Bobble(1<<random.nextInt(3));
 	}
 
-	public static Bobble getRandomPrimaryBobble(int colorCount)
-	{
-		return new Bobble(1<<random.nextInt(colorCount));
-	}
-
 	private String getColorName()
 	{
 		switch(color)
@@ -75,8 +69,6 @@ public class Bobble implements Cloneable
 				return "Purple";
 			case GREEN_INDEX:
 				return "Green";
-			case NEW_COLOR_INDEX:
-				return "New color";
 			default:
 				return "Unknown";
 		}
@@ -107,8 +99,6 @@ public class Bobble implements Cloneable
 				return R.drawable.purple;
 			case GREEN_INDEX:
 				return R.drawable.green;
-			case NEW_COLOR_INDEX:
-				return R.drawable.new_color;
 			default:
 				return 0;
 		}
