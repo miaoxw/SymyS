@@ -8,10 +8,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
+import cn.edu.nju.software.jksc.symys.algorithm.ScoreCalculator;
 import cn.edu.nju.software.jksc.symys.common.Bobble;
 
 /**
@@ -33,6 +37,11 @@ public class GamePanelController {
     final int DOWN = 3;
 
     final int NO_SWAP = 0;
+    private long mix_time = 100;
+    private long swap_time = 150;
+
+    private int step = 0;
+
 
     public GamePanelController(Bobble[][] bobbles, FrameLayout layout, Activity activity) {
         this.bobbles = bobbles;
@@ -102,11 +111,12 @@ public class GamePanelController {
         if (x2 >= 0 && y2 >= 0 && x2 < col_size && y2 < col_size) {
             if (bobbles[x][y].getColorID() != bobbles[x2][y2].getColorID() && bobbles[x2][y2].getColorID() > 0) {
                 Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
-                translateAnimation1.setDuration(300);
+                translateAnimation1.setDuration(swap_time);
                 Animation translateAnimation2 = new TranslateAnimation(0, 0 - animationX, 0, 0 - animationY);
-                translateAnimation2.setDuration(300);
-                zoom2(x,y,1.05f);
-                zoom2(x2,y2,1.05f);
+                translateAnimation2.setDuration(swap_time);
+                zoom2(x, y, 1.05f);
+                zoom2(x2, y2, 1.05f);
+                layout.bringChildToFront(imageViews[x][y]);
                 imageViews[x][y].startAnimation(translateAnimation1);
                 imageViews[x2][y2].startAnimation(translateAnimation2);
                 translateAnimation1.setAnimationListener(new Animation.AnimationListener() {
@@ -126,6 +136,7 @@ public class GamePanelController {
                         Bobble temp = bobbles[xx][yy];
                         bobbles[xx][yy] = bobbles[xx2][yy2];
                         bobbles[xx2][yy2] = temp;
+                        step();
                         reset();
                     }
 
@@ -143,9 +154,54 @@ public class GamePanelController {
     public void mix(int x1, int y1, int x2, int y2) {
 
         if (bobbles[x1][y1].mixWith(bobbles[x2][y2])) {
-            reset();
+            float animationY = (x1 - x2) * imageViews[x1][y1].getHeight();
+            float animationX = (y1 - y2) * imageViews[x1][y1].getHeight();
 
+            Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
+            translateAnimation1.setDuration(mix_time);
+            translateAnimation1.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    step();
+                    reset();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            layout.bringChildToFront(imageViews[x2][y2]);
+            imageViews[x2][y2].startAnimation(translateAnimation1);
         }
+    }
+
+    private void step() {
+        step++;
+    }
+
+    public void judge() {
+        TextView tv = (TextView) activity.findViewById(R.id.score_num);
+        tv.setText("" + step);
+        if (axises() > 0) {
+            ((ImageButton) activity.findViewById(R.id.done_button)).setImageResource(R.drawable.done_active);
+        } else {
+            ((ImageButton) activity.findViewById(R.id.done_button)).setImageResource(R.drawable.done);
+        }
+    }
+
+
+    public int axises() {
+        return AxisChecker.countAxis(bobbles);
+    }
+
+    public long getScore() {
+        return ScoreCalculator.calculateScore(col_size, 1, 0, 999);
     }
 
 
@@ -163,14 +219,15 @@ public class GamePanelController {
                 imageViews[i][j] = imageView;
                 layout.addView(imageView);
             }
-
         }
+        layout.addView(ImageViewFactory.getBigImageView(activity));
         reset();
     }
 
 
     //把所有的ImageView根据Bobble给初始化
     private void reset() {
+        judge();
         for (int i = 0; i < col_size; ++i) {
             for (int j = 0; j < col_size; ++j) {
                 final int x = i;
@@ -210,19 +267,6 @@ public class GamePanelController {
                                 case MotionEvent.ACTION_DOWN://按下的时候
                                     break;
                                 case MotionEvent.ACTION_MOVE://移动
-//                                    if (Math.abs(deltaX) > Math.abs(deltaY)) {  //左右
-//                                        if (deltaX > v.getHeight()) {  //右
-//                                            before_swap(x, y, RIGHT);
-//                                        } else if (deltaX < 0 - v.getHeight()) {  //左
-//                                            before_swap(x, y, LEFT);
-//                                        }
-//                                    } else {  //上下
-//                                        if (deltaY > v.getHeight()) {  //下
-//                                            before_swap(x, y, DOWN);
-//                                        } else if (deltaY < 0 - v.getHeight()) {  //上
-//                                            before_swap(x, y, UP);
-//                                        }
-//                                    }
                                     break;
                                 case MotionEvent.ACTION_UP://开始移动或者取消
 

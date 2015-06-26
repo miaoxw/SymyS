@@ -8,6 +8,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TableRow;
 
@@ -23,8 +24,6 @@ public class ImageViewFactory {
         ImageView imageView = new ImageView(context);
         imageView.setImageResource(color.getPicID());
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams();
-        DisplayMetrics dm = new DisplayMetrics();
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -33,15 +32,31 @@ public class ImageViewFactory {
         // always use the portrait dimensions to do the scaling calculations so we always get a portrait shaped
         // web dialog
         int width = metrics.widthPixels < metrics.heightPixels ? metrics.widthPixels : metrics.heightPixels;
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) (width * 0.9 / count),(int) (width * 0.9 / count));
 
-        params.height = (int) (width * 0.9 / count);
-        params.width = (int) (width * 0.9 / count);
 
-        imageView.setX((float) (j*width * 0.9 / count));
-        imageView.setY((float) (i*width * 0.9 / count));
+        imageView.setX((float) (j * width * 0.9 / count));
+        imageView.setY((float) (i * width * 0.9 / count));
+
+        int pad = (int) (width * 0.9 * 0.06 / count);
+        imageView.setLayoutParams(params);
+        imageView.setPadding(pad, pad, pad, pad);
+        return imageView;
+    }
+
+    public static ImageView getBigImageView(Context context){
+        ImageView imageView = new ImageView(context);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        // always use the portrait dimensions to do the scaling calculations so we always get a portrait shaped
+        // web dialog
+        int width = metrics.widthPixels < metrics.heightPixels ? metrics.widthPixels : metrics.heightPixels;
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width,width);
+
 
         imageView.setLayoutParams(params);
-        imageView.setPadding(5, 5, 5, 5);
         return imageView;
     }
 

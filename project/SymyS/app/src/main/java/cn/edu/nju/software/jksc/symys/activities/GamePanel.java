@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 import cn.edu.nju.software.jksc.symys.GamePanelController;
@@ -27,10 +28,12 @@ public class GamePanel extends Activity {
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.main_panel);
         Bobble[][] colors = MapGenerator.generate(4,1,0,4);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
+
+        frameLayout.setMinimumHeight(params.width);
+
         gc = new GamePanelController(colors,frameLayout,this);
         gc.init();
-
-
 
     }
 
