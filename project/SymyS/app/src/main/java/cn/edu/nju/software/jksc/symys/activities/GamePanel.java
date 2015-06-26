@@ -27,11 +27,10 @@ public class GamePanel extends Activity {
         setContentView(R.layout.activity_game_panel);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.main_panel);
-        Bundle extras = getIntent().getExtras();
-        int size = (Integer) extras.get("boardSize");
-        int axises = (Integer) extras.get("axisSum");
-        int colorSum = (Integer) extras.get("colorSum");
-        Bobble[][] colors = MapGenerator.generate(size,axises,0,40);
+        Bobble[][] colors = MapGenerator.generate(6,1,0,40);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
+
+        frameLayout.setMinimumHeight(params.width);
 
 
         gc = new GamePanelController(colors,frameLayout,this);
