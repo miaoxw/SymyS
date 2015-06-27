@@ -1,5 +1,7 @@
 package cn.edu.nju.software.jksc.symys.algorithm;
 
+import android.util.Log;
+
 import cn.edu.nju.software.jksc.symys.common.Bobble;
 
 /**
@@ -11,6 +13,10 @@ public class AxisChecker
 	{
 		int ret=0;
 
+		Log.d("result","vertical"+checkVertical(src));
+		Log.d("result","horizontal"+checkHorizontal(src));
+		Log.d("result","lean1"+checkLean1(src));
+		Log.d("result","lean2"+checkLean2(src));
 		if(checkVertical(src))
 			ret++;
 		if(checkHorizontal(src))
@@ -59,7 +65,7 @@ public class AxisChecker
 	{
 		int gridSize=src.length;
 		for(int i=0;i<gridSize;i++)
-			for(int j=0;j<i;j++)
+			for(int j=0;j<gridSize-i;j++)
 				if(!src[i][j].equals(src[gridSize-j-1][gridSize-i-1]))
 					return false;
 		return true;
