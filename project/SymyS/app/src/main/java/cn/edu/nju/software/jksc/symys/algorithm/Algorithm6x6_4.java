@@ -37,8 +37,8 @@ final class Algorithm6x6_4 extends GeneratingAlgorithm
 		Random random=new Random();
 		for(int i=1;i<=100;i++)
 		{
-			int index1=random.nextInt(colorMapping.size()+1);
-			int index2=random.nextInt(colorMapping.size()+1);
+			int index1=random.nextInt(colorCount)+1;
+			int index2=random.nextInt(colorCount)+1;
 			Bobble tempColor=colorMapping.get(index1);
 			colorMapping.put(index1,colorMapping.get(index2));
 			colorMapping.put(index2,tempColor);
