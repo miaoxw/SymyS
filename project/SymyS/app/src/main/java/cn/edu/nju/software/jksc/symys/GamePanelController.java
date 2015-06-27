@@ -204,7 +204,7 @@ public class GamePanelController {
     }
 
     public long getScore() {
-        return ScoreCalculator.calculateScore(col_size, 1, 0, 999);
+        return ScoreCalculator.calculateNormalModeScore(col_size,1,0,999);
     }
 
 
