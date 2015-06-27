@@ -22,7 +22,6 @@ public class Bobble implements Cloneable
 	public static final int ORANGE_INDEX=3;
 	public static final int PURPLE_INDEX=5;
 	public static final int GREEN_INDEX=6;
-	public static final int BLOCK_INDEX=-1;
 	public static final int BLANK_INDEX=0;
 	private Bobble(int color)
 	{
@@ -38,11 +37,6 @@ public class Bobble implements Cloneable
 	public static Bobble getRandomBobble()
 	{
 		return new Bobble(random.nextInt(6)+1);
-	}
-
-	public static Bobble getBlockedBobble()
-	{
-		return new Bobble(BLOCK_INDEX);
 	}
 
 	public static Bobble getRandomPrimaryBobble()
@@ -64,8 +58,6 @@ public class Bobble implements Cloneable
 	{
 		switch(color)
 		{
-			case BLOCK_INDEX:
-				return "Blocked";
 			case BLANK_INDEX:
 				return "Black";
 			case RED_INDEX:
@@ -96,8 +88,6 @@ public class Bobble implements Cloneable
 	{
 		switch(color)
 		{
-			case BLOCK_INDEX:
-				return 0;
 			case BLANK_INDEX:
 				return 0;
 			case RED_INDEX:
@@ -144,6 +134,7 @@ public class Bobble implements Cloneable
 
 	/**
 	 * Notice: This method will cause some side effects to the parameter.
+	 * This method implies the parameter isPointMode with default value false.
 	 *
 	 * @param anotherBobble Another bobble that participates in the mixing.
 	 * @return true if the mix succeeds.
@@ -151,14 +142,33 @@ public class Bobble implements Cloneable
 	 */
 	public boolean mixWith(Bobble anotherBobble)// throws CannotMixException
 	{
-		if(isPrimary()&&anotherBobble.isPrimary())
+		return mixWith(anotherBobble,false);
+	}
+
+	public boolean mixWith(Bobble anotherBobble,boolean isPointingMode)
+	{
+		if(isPointingMode)
 		{
-			this.color|=anotherBobble.color;
-			anotherBobble.color=BLANK_INDEX;
-			return true;
+			if(isPrimary()&&anotherBobble.isPrimary())
+			{
+				this.color|=anotherBobble.color;
+				anotherBobble.color=Bobble.getRandomPrimaryBobble().color;
+				return true;
+			}
+			else
+				return false;
 		}
 		else
-			return false;
+		{
+			if(isPrimary()&&anotherBobble.isPrimary())
+			{
+				this.color|=anotherBobble.color;
+				anotherBobble.color=BLANK_INDEX;
+				return true;
+			}
+			else
+				return false;
+		}
 	}
 
 	@Override
