@@ -34,7 +34,7 @@ public class GamePanel extends Activity {
         Bobble[][] colors = MapGenerator.generate(size,axises,0,40,colorSum);
 
 
-        gc = new GamePanelController(colors,frameLayout,this);
+        gc = new GamePanelController(colors,axises,frameLayout,this);
         gc.init();
 
     }

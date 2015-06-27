@@ -42,14 +42,16 @@ public class GamePanelController {
     private long swap_time = 150;
 
     private int step = 0;
+    private int axises_target;
 
 
-    public GamePanelController(Bobble[][] bobbles, FrameLayout layout, Activity activity) {
+    public GamePanelController(Bobble[][] bobbles,int axises_target , FrameLayout layout, Activity activity) {
         this.bobbles = bobbles;
         col_size = bobbles.length;
         imageViews = new ImageView[col_size][col_size];
         this.layout = layout;
         this.activity = activity;
+        this.axises_target = axises_target;
     }
 
 
@@ -189,7 +191,7 @@ public class GamePanelController {
     public void judge() {
         TextView tv = (TextView) activity.findViewById(R.id.score_num);
         tv.setText("" + step);
-        if (axises() > 0) {
+        if (axises() >= axises_target) {
             ((ImageButton) activity.findViewById(R.id.done_button)).setImageResource(R.drawable.done_active);
         } else {
             ((ImageButton) activity.findViewById(R.id.done_button)).setImageResource(R.drawable.done);
