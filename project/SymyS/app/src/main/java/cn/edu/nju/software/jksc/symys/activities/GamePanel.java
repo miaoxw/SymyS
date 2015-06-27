@@ -31,7 +31,7 @@ public class GamePanel extends Activity {
         int size = (Integer) extras.get("boardSize");
         int axises = (Integer) extras.get("axisSum");
         int colorSum = (Integer) extras.get("colorSum");
-        Bobble[][] colors = MapGenerator.generate(size,axises,0,40);
+        Bobble[][] colors = MapGenerator.generate(size,axises,0,40,colorSum);
 
 
         gc = new GamePanelController(colors,frameLayout,this);
