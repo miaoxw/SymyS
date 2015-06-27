@@ -5,4 +5,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="user_guide" parent="ShowcaseView.Light">
+        <item name="sv_backgroundColor">#00000000</item> <!--you can customize it-->
+        <item name="sv_buttonText">Hide</item> <!--you can customize it-->
+        <item name="sv_buttonBackgroundColor">#00000000</item>
+        <item name="sv_buttonForegroundColor">#00000000</item>
+        <item name="sv_tintButtonColor">false</item>
+    </style>
+
 </resources>

@@ -8,6 +8,7 @@
         <item name="sv_backgroundColor">#663d4353</item> <!--you can customize it-->
         <item name="sv_showcaseColor">#25467A</item> <!--you can customize it-->
         <item name="sv_buttonText">Close</item> <!--you can customize it-->
+
     </style>
 
 </resources>

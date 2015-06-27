@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
+
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import cn.edu.nju.software.jksc.symys.GamePanelController;
 import cn.edu.nju.software.jksc.symys.R;
@@ -20,6 +27,8 @@ public class GamePanel extends Activity {
 
 
     GamePanelController gc;
+
+    int showid = 23332;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +46,51 @@ public class GamePanel extends Activity {
         gc = new GamePanelController(colors,axises,frameLayout,this);
         gc.init();
 
+
+        ArrayList<Integer> dlist = new ArrayList<>();
+        dlist.add(R.drawable.user_guide1);
+        dlist.add(R.drawable.user_guide2);
+        dlist.add(R.drawable.user_guide3);
+
+        s1(dlist.iterator());
+
+
     }
+
+    private void s1(Iterator<Integer> iter){
+        int source = iter.next();
+        final boolean next = iter.hasNext();
+        final Iterator<Integer> fiter = iter;
+        showid++;
+
+        final long fshowid = showid;
+        ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                .setStyle(R.style.user_guide)
+                .hideOnTouchOutside()
+                .setShowcaseEventListener(new OnShowcaseEventListener() {
+                    @Override
+                    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                        if (next) {
+                            s1(fiter);
+                        }
+                    }
+
+                    @Override
+                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+                    }
+
+                    @Override
+                    public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+                    }
+                })
+                .build();
+        showcaseView.setBackgroundDrawable(getResources().getDrawable(source));
+        showcaseView.hideButton();
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

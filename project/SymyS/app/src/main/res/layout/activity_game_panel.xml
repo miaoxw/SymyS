@@ -36,6 +36,7 @@
         android:scaleType="fitXY"
         android:background="#00000000"
         android:src="@drawable/done"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
      />
 
