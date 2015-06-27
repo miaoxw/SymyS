@@ -18,11 +18,20 @@ public class Bobble implements Cloneable
 	public static final int RED_INDEX=1;
 	public static final int YELLOW_INDEX=2;
 	public static final int BLUE_INDEX=4;
-	public static final int NEW_COLOR_INDEX=8;
+	public static final int BLACK_INDEX=8;
 	public static final int ORANGE_INDEX=3;
 	public static final int PURPLE_INDEX=5;
 	public static final int GREEN_INDEX=6;
+	public static final int DARK_RED_INDEX=9;
+	public static final int DARK_YELLOW_INDEX=10;
+	public static final int DARK_BLUE_INDEX=12;
 	public static final int BLANK_INDEX=0;
+
+	private static final Bobble[] AVAILABLE_BOBBLES=new Bobble[]{new Bobble(RED_INDEX),new Bobble(YELLOW_INDEX),new Bobble(ORANGE_INDEX),
+	                                                             new Bobble(BLUE_INDEX),new Bobble(PURPLE_INDEX),new Bobble(GREEN_INDEX),
+	                                                             new Bobble(BLACK_INDEX),new Bobble(DARK_RED_INDEX),new Bobble(DARK_YELLOW_INDEX),
+	                                                             new Bobble(DARK_BLUE_INDEX)};
+
 	private Bobble(int color)
 	{
 		this.color=color;
@@ -36,17 +45,13 @@ public class Bobble implements Cloneable
 	 */
 	public static Bobble getRandomBobble()
 	{
-		return new Bobble(random.nextInt(6)+1);
+		return AVAILABLE_BOBBLES[random.nextInt(AVAILABLE_BOBBLES.length)].clone();
 	}
 
+	//Fetch 3 colors by default
 	public static Bobble getRandomPrimaryBobble()
 	{
 		return new Bobble(1<<random.nextInt(3));
-	}
-
-	public static Bobble getPrimaryBobbleByID(int primaryColorID)
-	{
-		return new Bobble(1<<(primaryColorID-1));
 	}
 
 	public static Bobble getRandomPrimaryBobble(int colorCount)
@@ -54,12 +59,18 @@ public class Bobble implements Cloneable
 		return new Bobble(1<<random.nextInt(colorCount));
 	}
 
+
+	public static Bobble getPrimaryBobbleByID(int primaryColorID)
+	{
+		return new Bobble(1<<(primaryColorID-1));
+	}
+
 	private String getColorName()
 	{
 		switch(color)
 		{
 			case BLANK_INDEX:
-				return "Black";
+				return "Blank";
 			case RED_INDEX:
 				return "Red";
 			case YELLOW_INDEX:
@@ -72,8 +83,14 @@ public class Bobble implements Cloneable
 				return "Purple";
 			case GREEN_INDEX:
 				return "Green";
-			case NEW_COLOR_INDEX:
-				return "New color";
+			case BLACK_INDEX:
+				return "Black";
+			case DARK_RED_INDEX:
+				return "Dark red";
+			case DARK_YELLOW_INDEX:
+				return "Dark yellow";
+			case DARK_BLUE_INDEX:
+				return "Dark blue";
 			default:
 				return "Unknown";
 		}
@@ -102,8 +119,14 @@ public class Bobble implements Cloneable
 				return R.drawable.purple;
 			case GREEN_INDEX:
 				return R.drawable.green;
-			case NEW_COLOR_INDEX:
-				return R.drawable.new_color;
+			case BLACK_INDEX:
+				return R.drawable.black;
+			case DARK_RED_INDEX:
+				return R.drawable.dark_red;
+			case DARK_YELLOW_INDEX:
+				return R.drawable.dark_yellow;
+			case DARK_BLUE_INDEX:
+				return R.drawable.dark_blue;
 			default:
 				return 0;
 		}
@@ -111,15 +134,18 @@ public class Bobble implements Cloneable
 
 	public boolean isPrimary()
 	{
-		return color==RED_INDEX||color==YELLOW_INDEX||color==BLUE_INDEX;
+		return color==RED_INDEX||color==YELLOW_INDEX||color==BLUE_INDEX||color==BLACK_INDEX;
 	}
 
 	public boolean isBobble()
 	{
-		return color>0&&color<=6;
+		for(Bobble bobble:AVAILABLE_BOBBLES)
+			if(this.equals(bobble))
+				return true;
+		return false;
 	}
 
-	public boolean swapWith(Bobble anotherBobble)// throws CannotSwapException
+	public boolean swapWith(Bobble anotherBobble)
 	{
 		if(isBobble()&&anotherBobble.isBobble())
 		{
