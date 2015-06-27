@@ -50,6 +50,11 @@ public class Bobble implements Cloneable
 		return new Bobble(1<<random.nextInt(3));
 	}
 
+	public static Bobble getPrimaryBobbleByID(int primaryColorID)
+	{
+		return new Bobble(1<<(primaryColorID-1));
+	}
+
 	public static Bobble getRandomPrimaryBobble(int colorCount)
 	{
 		return new Bobble(1<<random.nextInt(colorCount));
