@@ -11,28 +11,21 @@
     <RelativeLayout
         android:id="@+id/score_label"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
-
-
-
+        android:layout_height="80dp"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/score_num"
             android:layout_alignParentRight="true"
             />
-
-
-
-
-
     </RelativeLayout>
 
     <FrameLayout android:id="@+id/main_panel"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height= "wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@id/score_label"
+        android:layout_centerHorizontal="true"
         ></FrameLayout>
 
     <ImageButton

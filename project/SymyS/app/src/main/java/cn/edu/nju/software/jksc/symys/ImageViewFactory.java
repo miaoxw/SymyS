@@ -33,6 +33,8 @@ public class ImageViewFactory {
         // always use the portrait dimensions to do the scaling calculations so we always get a portrait shaped
         // web dialog
         int width = metrics.widthPixels < metrics.heightPixels ? metrics.widthPixels : metrics.heightPixels;
+        double totalWidth = width * 0.8;
+
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) (width * 0.8 / count),(int) (width * 0.8 / count));
 
 
@@ -55,7 +57,7 @@ public class ImageViewFactory {
         // always use the portrait dimensions to do the scaling calculations so we always get a portrait shaped
         // web dialog
         int width = metrics.widthPixels < metrics.heightPixels ? metrics.widthPixels : metrics.heightPixels;
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width,width);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int)(width*0.8),(int)(width*0.8));
 
 
 
