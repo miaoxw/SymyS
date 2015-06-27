@@ -18,7 +18,7 @@ final class Algorithm3x3_1 extends GeneratingAlgorithm
 	}
 
 	@Override
-	public Bobble[][] generate(int mixCount,int colorCount) throws ParameterInvalidException
+	public Bobble[][] generate(int mixCount,int colorTypeCount) throws ParameterInvalidException
 	{
 		if(mixCount<0||mixCount>maxMix)
 			throw new ParameterInvalidException("Invalid number of mix");
@@ -27,25 +27,25 @@ final class Algorithm3x3_1 extends GeneratingAlgorithm
 
 		Hashtable<Integer,Bobble> colorMapping=new Hashtable<>();
 		for(int i=1;i<=colorCount;i++)
-			colorMapping.put(i,Bobble.getRandomPrimaryBobble(colorCount));
+			colorMapping.put(i,Bobble.getRandomPrimaryBobble(colorTypeCount));
 
 		//It is of course that 0<=mixCount<=4
 		if(mixCount>=1&&mixCount<=3)
 		{
 			while(colorMapping.get(4).equals(colorMapping.get(5)))
 			{
-				colorMapping.put(5,Bobble.getRandomPrimaryBobble(colorCount));
+				colorMapping.put(5,Bobble.getRandomPrimaryBobble(colorTypeCount));
 			}
 			while(colorMapping.get(1).equals(colorMapping.get(2)))
 			{
-				colorMapping.put(2,Bobble.getRandomPrimaryBobble(colorCount));
+				colorMapping.put(2,Bobble.getRandomPrimaryBobble(colorTypeCount));
 			}
 		}
 		if(mixCount==4)
 		{
 			while(colorMapping.get(1).equals(colorMapping.get(2)))
 			{
-				colorMapping.put(2,Bobble.getRandomPrimaryBobble(colorCount));
+				colorMapping.put(2,Bobble.getRandomPrimaryBobble(colorTypeCount));
 			}
 			colorMapping.put(3,colorMapping.get(1));
 			colorMapping.put(4,colorMapping.get(2));
