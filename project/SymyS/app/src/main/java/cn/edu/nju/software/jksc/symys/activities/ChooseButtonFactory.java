@@ -124,6 +124,7 @@ public class ChooseButtonFactory {
         return status;
     }
 
+
     private static ArrayList<Integer> getButtonImgResUnlock(int viewId){
         ArrayList<Integer> res=new ArrayList<>();
         if(viewId==0){

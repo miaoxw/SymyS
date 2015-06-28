@@ -17,6 +17,7 @@ public class MyPagerAdapter extends PagerAdapter {
 
     private List<View> mListView;
     private Context context;
+    private int currentSelectLevel=0;
 
 
     public MyPagerAdapter(List<View> mListView) {
@@ -49,12 +50,15 @@ public class MyPagerAdapter extends PagerAdapter {
         // TODO Auto-generated method stub
         ((ViewGroup)arg0).addView(mListView.get(arg1), 0);
         ArrayList<Button> buttons=ChooseButtonFactory.getButtonList(arg0);
+        final int curArg1=arg1;
         for(int i=0;i<buttons.size();i++){
             final Button btn=buttons.get(i);
+            final int currentIndex=i;
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v("click",""+btn.getId());
+                    currentSelectLevel=currentIndex+curArg1*9;
+                    Log.v("click",""+currentSelectLevel);
                 }
             });
         }
@@ -79,21 +83,6 @@ public class MyPagerAdapter extends PagerAdapter {
                 }
             }
         }
-//        if(arg1==0){
-//            Button bt=(Button)arg0.findViewById(R.id.button1);
-//            bt.setBackgroundResource(R.drawable.chooselevelbtn_unlocked_blue_1);
-//            Log.d("0:",""+bt.getId());
-//        }
-//        if(arg1==1){
-//            Button bt=(Button)arg0.findViewById(R.id.button1);
-//            bt.setBackgroundResource(R.drawable.chooselevelbtn_select_blue_2);
-//            Log.d("1:",""+bt.getId());
-//        }
-//        if(arg1==2){
-//            Button bt=(Button)arg0.findViewById(R.id.button1);
-//            bt.setBackgroundResource(R.drawable.chooselevelbtn_locked_blue);
-//            Log.d("2:",""+bt.getId());
-//        }
         return mListView.get(arg1);
     }
     // 判断是否由对象生成界面
