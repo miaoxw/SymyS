@@ -3,11 +3,15 @@ package cn.edu.nju.software.jksc.symys.activities;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -33,35 +37,58 @@ public class GamePanel extends Activity {
         setContentView(R.layout.activity_game_panel);
         HashMap<String,Object> gameData;
         Bobble[][] colors = null;
+
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),
+                "font/FZXY.ttf");
         if(isLevel()){
             gameData = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");
-            Bundle extras = getIntent().getExtras();
-            int size = (Integer) extras.get("boardSize");
-            int axises = (Integer) extras.get("axisSum");
-            int colorSum = (Integer) extras.get("colorSum");
+            gameData = new HashMap<>();
+            gameData.put("type", "level");
+            int size = 4;
+            int axises = 1;
+            int colorSum = 3;
             colors = MapGenerator.generate(size, axises, 0, 40, colorSum);
             MyShowCase.show(this, R.layout.level_helping, "level-help");
+            ViewGroup header = (ViewGroup) findViewById(R.id.header);
+            View view = LayoutInflater.from(this).inflate(R.layout.level_header, null);
+            header.addView(view);
+
+
+
+            TextView tx = (TextView)findViewById(R.id.axis_lb);
+
+            tx.setTypeface(custom_font);
+
+            tx = (TextView)findViewById(R.id.axis);
+            tx.setTypeface(custom_font);
+            tx = (TextView)findViewById(R.id.step);
+            tx.setTypeface(custom_font);
+            tx = (TextView)findViewById(R.id.step_lb);
+            tx.setTypeface(custom_font);
         }else{
             gameData = new HashMap<>();
             gameData.put("type","point");
             colors = MapGenerator.generatePointingMode();
             MyShowCase.show(this, R.layout.point_helping, "point-help");
+            ViewGroup header = (ViewGroup) findViewById(R.id.header);
+            View view = LayoutInflater.from(this).inflate(R.layout.point_header, null);
+            header.addView(view);
+            TextView tx = (TextView)findViewById(R.id.score_lb);
+
+            tx.setTypeface(custom_font);
+
+            tx = (TextView)findViewById(R.id.score);
+            tx.setTypeface(custom_font);
+            tx = (TextView)findViewById(R.id.step);
+            tx.setTypeface(custom_font);
+            tx = (TextView)findViewById(R.id.step_lb);
+            tx.setTypeface(custom_font);
+
         }
 
         gc = new GamePanelController(colors, gameData,this);
         gc.init();
 
-        TextView tx = (TextView)findViewById(R.id.axis_lb);
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),
-                "font/FZXY.ttf");
-        tx.setTypeface(custom_font);
-
-        tx = (TextView)findViewById(R.id.axis);
-        tx.setTypeface(custom_font);
-        tx = (TextView)findViewById(R.id.step);
-        tx.setTypeface(custom_font);
-        tx = (TextView)findViewById(R.id.step_lb);
-        tx.setTypeface(custom_font);
 
 
     }

@@ -51,6 +51,7 @@ public class GamePanelController {
     private long swap_time = 150;
 
     private int step = 0;
+    private int max_step = 30;
     private int axises_target;
 
 
@@ -64,7 +65,7 @@ public class GamePanelController {
         layout = (ViewGroup) activity.findViewById(R.id.main_panel);
         this.gameData = gameData;
         this.axises_target = 1;
-        this.step = 30;
+        this.max_step = 30;
     }
 
     public void init() {
@@ -345,30 +346,35 @@ public class GamePanelController {
     }
 
     private void step() {
-        step--;
+        step++;
         judge();
     }
 
     public void judge() {
-        TextView tv = (TextView) activity.findViewById(R.id.step);
-        tv.setText("" + step);
-        tv = (TextView) activity.findViewById(R.id.axis);
-        tv.setText(String.format("%d/%d", axises(), axises_target));
-
         ImageButton imageButton = (ImageButton) activity.findViewById(R.id.done_button);
 
-        if (axises() >= axises_target) {
+        if(isPoint()){
             imageButton.setImageResource(R.drawable.done_active);
             imageButton.setClickable(true);
-        } else {
-            imageButton.setImageResource(R.drawable.done);
-            imageButton.setClickable(false);
+            TextView tv = (TextView) activity.findViewById(R.id.step);
+            tv.setText("" + step);
+            tv = (TextView) activity.findViewById(R.id.score);
+            tv.setText(String.format(""+getScore()));
+
+        }else{
+            TextView tv = (TextView) activity.findViewById(R.id.step);
+            tv.setText("" + (max_step-step));
+            tv = (TextView) activity.findViewById(R.id.axis);
+            tv.setText(String.format("%d/%d", axises(), axises_target));
+            if (axises() >= axises_target) {
+                imageButton.setImageResource(R.drawable.done_active);
+                imageButton.setClickable(true);
+            } else {
+                imageButton.setImageResource(R.drawable.done);
+                imageButton.setClickable(false);
+            }
         }
 
-        if (isPoint()) {
-            imageButton.setImageResource(R.drawable.done_active);
-            imageButton.setClickable(true);
-        }
     }
 
 
@@ -378,7 +384,11 @@ public class GamePanelController {
 
 
     public long getScore() {
-        return ScoreCalculator.calculateNormalModeScore(col_size, 1, 0, 999);
+        if(isPoint()){
+            return ScoreCalculator.calculatePointingModeScore(bobbles);
+        }else{
+            return ScoreCalculator.calculateNormalModeScore(col_size, 1, 0, 999);
+        }
     }
 
     //初始化
