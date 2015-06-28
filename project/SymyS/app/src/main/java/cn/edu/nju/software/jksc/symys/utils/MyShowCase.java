@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
-import cn.edu.nju.software.jksc.symys.R;
-
 /**
  * Created by Xc on 2015/6/28.
  */

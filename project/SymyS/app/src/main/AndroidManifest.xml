@@ -24,6 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.LevelScoreActivity"
+            android:label="@string/title_activity_level_score" >
+        </activity>
+        <activity
+            android:name=".activities.ScoreActivity"
+            android:label="@string/title_activity_score" >
+        </activity>
     </application>
 
 </manifest>

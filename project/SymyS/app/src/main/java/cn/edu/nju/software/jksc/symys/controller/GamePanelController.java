@@ -2,33 +2,43 @@ package cn.edu.nju.software.jksc.symys.controller;
 
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cn.edu.nju.software.jksc.symys.R;
+import cn.edu.nju.software.jksc.symys.activities.LevelScoreActivity;
 import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
 import cn.edu.nju.software.jksc.symys.algorithm.ScoreCalculator;
 import cn.edu.nju.software.jksc.symys.common.Bobble;
+
+import static android.util.Log.v;
 
 /**
  * Created by Xc on 2015/6/23.
  */
 public class GamePanelController {
     Bobble[][] bobbles;
-    FrameLayout layout;
     Activity activity;
     int col_size;
     ImageView[][] imageViews;
 
+    ViewGroup layout;
     final int NORMAL = 0;
     final int TO_MIX = 1;
 
@@ -46,13 +56,14 @@ public class GamePanelController {
     private int axises_target;
 
 
-    public GamePanelController(Bobble[][] bobbles,int axises_target , FrameLayout layout, Activity activity) {
+    public GamePanelController(Bobble[][] bobbles, int axises_target, Activity activity,int step) {
         this.bobbles = bobbles;
         col_size = bobbles.length;
         imageViews = new ImageView[col_size][col_size];
-        this.layout = layout;
         this.activity = activity;
+        layout = (ViewGroup) activity.findViewById(R.id.main_panel);
         this.axises_target = axises_target;
+        this.step = step;
     }
 
 
@@ -114,15 +125,34 @@ public class GamePanelController {
 
         if (x2 >= 0 && y2 >= 0 && x2 < col_size && y2 < col_size) {
             if (bobbles[x][y].getColorID() != bobbles[x2][y2].getColorID() && bobbles[x2][y2].getColorID() > 0) {
-                Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
-                translateAnimation1.setDuration(swap_time);
-                Animation translateAnimation2 = new TranslateAnimation(0, 0 - animationX, 0, 0 - animationY);
-                translateAnimation2.setDuration(swap_time);
+                final Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
+                translateAnimation1.setDuration(200);
+                final Animation translateAnimation2 = new TranslateAnimation(0, 0 - animationX, 0, 0 - animationY);
+                translateAnimation2.setDuration(200);
                 zoom2(x, y, 1.05f);
                 zoom2(x2, y2, 1.05f);
                 layout.bringChildToFront(imageViews[x][y]);
-                imageViews[x][y].startAnimation(translateAnimation1);
-                imageViews[x2][y2].startAnimation(translateAnimation2);
+
+                final ImageView fim1 = imageViews[x][y];
+                final ImageView fim2 = imageViews[x2][y2];
+
+
+                Handler handler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 0x2333) {
+                            fim1.startAnimation(translateAnimation1);
+                            fim2.startAnimation(translateAnimation2);
+                            Log.v("aniiiiii", "aniiiiiiiiiiiiii");
+                        }
+                    }
+                };
+                handler.sendEmptyMessage(0x2333);
+
+
+//                imageViews[x][y].startAnimation(translateAnimation1);
+//                imageViews[x2][y2].startAnimation(translateAnimation2);
+
                 translateAnimation1.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -155,14 +185,20 @@ public class GamePanelController {
 
     }
 
-    public void mix(int x1, int y1, int x2, int y2) {
+    public void mix(int x1, int y1, final int x2, final int y2) {
 
         if (bobbles[x1][y1].mixWith(bobbles[x2][y2])) {
-            float animationY = (x1 - x2) * imageViews[x1][y1].getHeight();
-            float animationX = (y1 - y2) * imageViews[x1][y1].getHeight();
+//            float animationY = (x1 - x2) * imageViews[x1][y1].getHeight();
+//            float animationX = (y1 - y2) * imageViews[x1][y1].getHeight();
+//
+//            Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
+            float animationY = (x1 - x2) * 1.0f;
+            float animationX = (y1 - y2) * 1.0f;
 
-            Animation translateAnimation1 = new TranslateAnimation(0, animationX, 0, animationY);
+            final Animation translateAnimation1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, animationX,
+                    Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, animationY);
             translateAnimation1.setDuration(mix_time);
+
             translateAnimation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -181,21 +217,40 @@ public class GamePanelController {
                 }
             });
             layout.bringChildToFront(imageViews[x2][y2]);
-            imageViews[x2][y2].startAnimation(translateAnimation1);
+            final ImageView fim = imageViews[x2][y2];
+
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    if (msg.what == 0x2333) {
+                        fim.startAnimation(translateAnimation1);
+                    }
+                }
+            };
+            handler.sendEmptyMessage(0x2333);
+
         }
     }
 
     private void step() {
-        step++;
+        judge();
+        step--;
     }
 
     public void judge() {
-        TextView tv = (TextView) activity.findViewById(R.id.score_num);
-        tv.setText("" + step);
+        TextView tv = (TextView) activity.findViewById(R.id.step);
+        tv.setText(""+step);
+        tv = (TextView) activity.findViewById(R.id.axis);
+        tv.setText(String.format("%d/%d",axises(),axises_target));
+
+        ImageButton imageButton = (ImageButton) activity.findViewById(R.id.done_button);
+
         if (axises() >= axises_target) {
-            ((ImageButton) activity.findViewById(R.id.done_button)).setImageResource(R.drawable.done_active);
+            imageButton.setImageResource(R.drawable.done_active);
+            imageButton.setClickable(true);
         } else {
-            ((ImageButton) activity.findViewById(R.id.done_button)).setImageResource(R.drawable.done);
+            imageButton.setImageResource(R.drawable.done);
+            imageButton.setClickable(false);
         }
     }
 
@@ -205,7 +260,7 @@ public class GamePanelController {
     }
 
     public long getScore() {
-        return ScoreCalculator.calculateNormalModeScore(col_size,1,0,999);
+        return ScoreCalculator.calculateNormalModeScore(col_size, 1, 0, 999);
     }
 
 
@@ -224,14 +279,32 @@ public class GamePanelController {
                 layout.addView(imageView);
             }
         }
-        layout.addView(ImageViewFactory.getBigImageView(activity));
+
+        int width = ImageViewFactory.getScreenWidth(activity);
+
+        ViewGroup.LayoutParams p = layout.getLayoutParams();
+        p.width = p.height = width;
+        layout.setLayoutParams(p);
+
+
         reset();
+        ImageButton imageButton = (ImageButton) activity.findViewById(R.id.done_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(activity, LevelScoreActivity.class);
+                intent.putExtra("score",ScoreCalculator.calculatePointingModeScore(bobbles));
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
+        judge();
     }
 
 
     //把所有的ImageView根据Bobble给初始化
     private void reset() {
-        judge();
         for (int i = 0; i < col_size; ++i) {
             for (int j = 0; j < col_size; ++j) {
                 final int x = i;
@@ -303,7 +376,7 @@ public class GamePanelController {
 
     private ArrayList<Pos> getMixNeighbour(int x, int y) {
         ArrayList<Pos> poses = new ArrayList<>();
-        Pos[] poss = new Pos[4 ];
+        Pos[] poss = new Pos[4];
         poss[0] = new Pos(x - 1, y);
         poss[1] = new Pos(x + 1, y);
         poss[2] = new Pos(x, y - 1);
@@ -368,7 +441,7 @@ public class GamePanelController {
 
 
         for (final Pos pos : poses) {
-            Log.v("pos:", pos.x + " " + pos.y);
+            v("pos:", pos.x + " " + pos.y);
             zoom(pos.x, pos.y);
             imageViews[pos.x][pos.y].setOnClickListener(new View.OnClickListener() {
                 @Override

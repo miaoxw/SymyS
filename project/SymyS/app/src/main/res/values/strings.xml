@@ -9,4 +9,6 @@
     <drawable name="clr_pressed">#ff6e8ea4</drawable>
     <drawable name="pass_done">#ff38aa36</drawable>
     <string name="title_activity_user_guider">UserGuiderActivity</string>
+    <string name="title_activity_level_score">LevelScoreActivity</string>
+    <string name="title_activity_score">ScoreActivity</string>
 </resources>
