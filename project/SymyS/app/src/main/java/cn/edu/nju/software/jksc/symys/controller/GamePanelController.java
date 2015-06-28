@@ -5,18 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -58,16 +54,16 @@ public class GamePanelController {
     private int axises_target;
 
 
-    HashMap<String,Object> gameData;
+    HashMap<String, Object> gameData;
 
-    public GamePanelController(Bobble[][] bobbles,HashMap<String,Object> gameData, Activity activity) {
+    public GamePanelController(Bobble[][] bobbles, HashMap<String, Object> gameData, Activity activity) {
         this.bobbles = bobbles;
         col_size = bobbles.length;
         imageViews = new ImageView[col_size][col_size];
         this.activity = activity;
         layout = (ViewGroup) activity.findViewById(R.id.main_panel);
         this.gameData = gameData;
-        this.axises_target  =1;
+        this.axises_target = 1;
         this.step = 30;
     }
 
@@ -94,13 +90,13 @@ public class GamePanelController {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                if(isPoint()){
+                if (isPoint()) {
                     intent = new Intent(activity, ScoreActivity.class);
-                }else{
-                    intent = new Intent(activity,LevelScoreActivity.class);
+                } else {
+                    intent = new Intent(activity, LevelScoreActivity.class);
                 }
-                intent.putExtra("score",ScoreCalculator.calculatePointingModeScore(bobbles));
-                intent.putExtra("gameData",gameData);
+                intent.putExtra("score", ScoreCalculator.calculatePointingModeScore(bobbles));
+                intent.putExtra("gameData", gameData);
                 activity.startActivity(intent);
                 activity.finish();
             }
@@ -180,7 +176,7 @@ public class GamePanelController {
     }
 
 
-    private boolean isPoint(){
+    private boolean isPoint() {
         return gameData.get("type").equals("point");
     }
 
@@ -349,15 +345,15 @@ public class GamePanelController {
     }
 
     private void step() {
-        judge();
         step--;
+        judge();
     }
 
     public void judge() {
         TextView tv = (TextView) activity.findViewById(R.id.step);
-        tv.setText(""+step);
+        tv.setText("" + step);
         tv = (TextView) activity.findViewById(R.id.axis);
-        tv.setText(String.format("%d/%d",axises(),axises_target));
+        tv.setText(String.format("%d/%d", axises(), axises_target));
 
         ImageButton imageButton = (ImageButton) activity.findViewById(R.id.done_button);
 
@@ -369,7 +365,7 @@ public class GamePanelController {
             imageButton.setClickable(false);
         }
 
-        if( isPoint() ){
+        if (isPoint()) {
             imageButton.setImageResource(R.drawable.done_active);
             imageButton.setClickable(true);
         }
@@ -386,7 +382,6 @@ public class GamePanelController {
     }
 
     //初始化
-
 
 
     private ArrayList<Pos> getMixNeighbour(int x, int y) {

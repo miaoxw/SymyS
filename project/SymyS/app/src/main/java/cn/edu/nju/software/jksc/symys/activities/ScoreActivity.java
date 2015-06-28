@@ -24,7 +24,7 @@ public class ScoreActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        TextView tx = (TextView)findViewById(R.id.score_label);
+        TextView tx = (TextView)findViewById(R.id.header);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 "font/HarringtON.TTF");
         tx.setTypeface(custom_font);

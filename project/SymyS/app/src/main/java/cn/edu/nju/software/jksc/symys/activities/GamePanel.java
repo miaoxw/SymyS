@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -30,10 +31,7 @@ public class GamePanel extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_panel);
-
-
         HashMap<String,Object> gameData;
-
         Bobble[][] colors = null;
         if(isLevel()){
             gameData = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");

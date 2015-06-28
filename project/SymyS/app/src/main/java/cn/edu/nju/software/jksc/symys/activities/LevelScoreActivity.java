@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 import cn.edu.nju.software.jksc.symys.R;
 
@@ -24,7 +23,7 @@ public class LevelScoreActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_score);
-        TextView tx = (TextView)findViewById(R.id.score_label);
+        TextView tx = (TextView)findViewById(R.id.header);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 "font/HarringtON.TTF");
         tx.setTypeface(custom_font);
