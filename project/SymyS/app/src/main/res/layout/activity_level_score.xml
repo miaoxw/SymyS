@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
         <TextView
-            android:id="@+id/score_label"
+            android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SCORE:"
-            android:textSize="60dp"
+            android:textSize="@dimen/scorepanel_text_size"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:layout_marginTop="-10dp"
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23333"
-            android:textSize="60dp"
-            android:layout_below="@id/score_label"
+            android:textSize="@dimen/scorepanel_text_size"
+            android:layout_below="@id/header"
             android:layout_centerHorizontal="true"/>
         <ImageView
             android:layout_margin="10dp"

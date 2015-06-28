@@ -5,8 +5,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import java.util.HashMap;
 
 import cn.edu.nju.software.jksc.symys.R;
 import cn.edu.nju.software.jksc.symys.algorithm.MapGenerator;
@@ -14,26 +17,38 @@ import cn.edu.nju.software.jksc.symys.common.Bobble;
 import cn.edu.nju.software.jksc.symys.controller.GamePanelController;
 import cn.edu.nju.software.jksc.symys.utils.MyShowCase;
 
-
+/**
+ * needs gameData ,default for 积分模式
+ *
+ *
+ */
 public class GamePanel extends Activity {
 
 
     GamePanelController gc;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_panel);
+        HashMap<String,Object> gameData;
+        Bobble[][] colors = null;
+        if(isLevel()){
+            gameData = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");
+            Bundle extras = getIntent().getExtras();
+            int size = (Integer) extras.get("boardSize");
+            int axises = (Integer) extras.get("axisSum");
+            int colorSum = (Integer) extras.get("colorSum");
+            colors = MapGenerator.generate(size, axises, 0, 40, colorSum);
+            MyShowCase.show(this, R.layout.level_helping, "level-help");
+        }else{
+            gameData = new HashMap<>();
+            gameData.put("type","point");
+            colors = MapGenerator.generatePointingMode();
+            MyShowCase.show(this, R.layout.point_helping, "point-help");
+        }
 
-        Bundle extras = getIntent().getExtras();
-        int size = (Integer) extras.get("boardSize");
-        int axises = (Integer) extras.get("axisSum");
-        int colorSum = (Integer) extras.get("colorSum");
-        Bobble[][] colors = MapGenerator.generate(size, axises, 0, 40, colorSum);
-
-
-        gc = new GamePanelController(colors, axises, this,30);
+        gc = new GamePanelController(colors, gameData,this);
         gc.init();
 
         TextView tx = (TextView)findViewById(R.id.axis_lb);
@@ -49,7 +64,17 @@ public class GamePanel extends Activity {
         tx.setTypeface(custom_font);
 
 
-        MyShowCase.show(this, R.layout.level_helping, "level-help");
+    }
+
+    private boolean isLevel() {
+        if(getIntent().hasExtra("gameData")){
+            HashMap<String,Object> data = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");
+            if(data.get("type").equals("level")){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

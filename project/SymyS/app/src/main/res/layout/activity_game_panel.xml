@@ -9,13 +9,10 @@
     >
 
     <RelativeLayout
-        android:id="@+id/score_label"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
-
-
         <RelativeLayout
             android:id="@+id/step_ly"
             android:layout_width="wrap_content"
@@ -27,20 +24,18 @@
                 android:layout_height="wrap_content"
                 android:text="5"
                 android:textSize="@dimen/text_size"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_grey_color"
                 android:layout_alignParentRight="true"
                 />
-
             <TextView
                 android:id="@+id/step_lb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="剩余步数："
                 android:textSize="@dimen/text_size"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_grey_color"
                 android:layout_toLeftOf="@+id/step"/>
         </RelativeLayout>
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="0/4"
                 android:textSize="@dimen/text_size"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_grey_color"
                 android:layout_alignParentRight="true"
                 />
 
@@ -62,18 +57,15 @@
                 android:layout_height="wrap_content"
                 android:text="对称轴："
                 android:textSize="@dimen/text_size"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_grey_color"
                 android:layout_toLeftOf="@id/axis"/>
         </RelativeLayout>
-
-
-
     </RelativeLayout>
 
     <FrameLayout android:id="@+id/main_panel"
         android:layout_width="wrap_content"
         android:layout_height= "wrap_content"
-        android:layout_below="@id/score_label"
+        android:layout_below="@id/header"
         android:layout_centerHorizontal="true"
         >
 
