@@ -19,7 +19,7 @@ public class MyPagerAdapter extends PagerAdapter {
     private List<View> mListView;
     private Context context;
     private int currentSelectLevel=0;
-
+    private int currentAccessLevel=0;
 
     public MyPagerAdapter(List<View> mListView) {
         super();
@@ -59,10 +59,14 @@ public class MyPagerAdapter extends PagerAdapter {
                 @Override
                 public void onClick(View v) {
                     currentSelectLevel=currentIndex+curArg1*9;
-                    Intent intent=new Intent(context,SelectLevelActivity.class);
-                    intent.putExtra("level",currentSelectLevel);
-                    context.startActivity(intent);
-                    Log.v("click",""+currentSelectLevel);
+                    if(currentSelectLevel<=currentAccessLevel){
+                        Intent intent=new Intent(context,SelectLevelActivity.class);
+                        intent.putExtra("level",currentSelectLevel);
+                        context.startActivity(intent);
+                        Log.v("click",""+currentSelectLevel);
+                    }
+                    Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+currentAccessLevel);
+
                 }
             });
         }
@@ -75,10 +79,11 @@ public class MyPagerAdapter extends PagerAdapter {
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
                 if(levelStatus[i][j]){
-                    lastestIndex=i*3+j;
+                    lastestIndex=arg1+i*3+j;
+                    currentAccessLevel=lastestIndex;
                     buttons.get(i*3+j).setBackgroundResource(unlockedRes.get(i*3+j));
                 }else{
-                    if(i*3+j-1==lastestIndex){
+                    if(arg1+i*3+j-1==lastestIndex){
                         buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
                     }else{
                         buttons.get(i*3+j).setBackgroundResource(lockedRes);
