@@ -20,9 +20,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.edu.nju.software.jksc.symys.R;
 import cn.edu.nju.software.jksc.symys.activities.LevelScoreActivity;
+import cn.edu.nju.software.jksc.symys.activities.ScoreActivity;
 import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
 import cn.edu.nju.software.jksc.symys.algorithm.ScoreCalculator;
 import cn.edu.nju.software.jksc.symys.common.Bobble;
@@ -56,16 +58,131 @@ public class GamePanelController {
     private int axises_target;
 
 
-    public GamePanelController(Bobble[][] bobbles, int axises_target, Activity activity,int step) {
+    HashMap<String,Object> gameData;
+
+    public GamePanelController(Bobble[][] bobbles,HashMap<String,Object> gameData, Activity activity) {
         this.bobbles = bobbles;
         col_size = bobbles.length;
         imageViews = new ImageView[col_size][col_size];
         this.activity = activity;
         layout = (ViewGroup) activity.findViewById(R.id.main_panel);
-        this.axises_target = axises_target;
-        this.step = step;
+        this.gameData = gameData;
+        this.axises_target  =1;
+        this.step = 30;
     }
 
+    public void init() {
+        for (int i = 0; i < col_size; ++i) {
+            for (int j = 0; j < col_size; ++j) {
+                final ImageView imageView = ImageViewFactory.getImageView(bobbles[i][j], activity, col_size, i, j);
+
+                imageViews[i][j] = imageView;
+                layout.addView(imageView);
+            }
+        }
+
+        int width = ImageViewFactory.getScreenWidth(activity);
+
+        ViewGroup.LayoutParams p = layout.getLayoutParams();
+        p.width = p.height = width;
+        layout.setLayoutParams(p);
+
+
+        reset();
+        ImageButton imageButton = (ImageButton) activity.findViewById(R.id.done_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                if(isPoint()){
+                    intent = new Intent(activity, ScoreActivity.class);
+                }else{
+                    intent = new Intent(activity,LevelScoreActivity.class);
+                }
+                intent.putExtra("score",ScoreCalculator.calculatePointingModeScore(bobbles));
+                intent.putExtra("gameData",gameData);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
+        judge();
+    }
+
+
+    //把所有的ImageView根据Bobble给初始化
+    private void reset() {
+        for (int i = 0; i < col_size; ++i) {
+            for (int j = 0; j < col_size; ++j) {
+                final int x = i;
+                final int y = j;
+                imageViews[i][j].setImageResource(bobbles[i][j].getPicID());
+                resetImageViewSize(x, y);
+
+
+                //有关混合的监听
+                if (bobbles[i][j].isPrimary() && getMixNeighbour(i, j).size() > 0) {
+                    imageViews[x][y].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            toMix(x, y);
+                        }
+                    });
+                } else {
+                    imageViews[x][y].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            reset();
+                        }
+                    });
+                }
+
+                //有关交换的监听
+                if (bobbles[i][j].getColorID() > 0) {
+                    imageViews[i][j].setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            float touchX = event.getX();
+                            float touchY = event.getY();
+
+                            float deltaX = touchX - v.getWidth() / 2;
+                            float deltaY = touchY - v.getHeight() / 2;
+                            switch (event.getActionMasked()) {
+                                case MotionEvent.ACTION_DOWN://按下的时候
+                                    break;
+                                case MotionEvent.ACTION_MOVE://移动
+                                    break;
+                                case MotionEvent.ACTION_UP://开始移动或者取消
+
+                                    if (Math.abs(deltaX) > Math.abs(deltaY)) {  //左右
+                                        if (deltaX > v.getHeight()) {  //右
+                                            swap(x, y, RIGHT);
+                                        } else if (deltaX < 0 - v.getHeight()) {  //左
+                                            swap(x, y, LEFT);
+                                        }
+                                    } else {  //上下
+                                        if (deltaY > v.getHeight()) {  //下
+                                            swap(x, y, DOWN);
+                                        } else if (deltaY < 0 - v.getHeight()) {  //上
+                                            swap(x, y, UP);
+                                        }
+                                    }
+                                    break;
+                                case MotionEvent.ACTION_OUTSIDE:
+                            }
+                            return false;
+                        }
+                    });
+                }
+
+
+            }
+        }
+    }
+
+
+    private boolean isPoint(){
+        return gameData.get("type").equals("point");
+    }
 
     private void before_swap(int x, int y, int position) {
         int x2 = x;
@@ -186,8 +303,7 @@ public class GamePanelController {
     }
 
     public void mix(int x1, int y1, final int x2, final int y2) {
-
-        if (bobbles[x1][y1].mixWith(bobbles[x2][y2])) {
+        if (bobbles[x1][y1].mixWith(bobbles[x2][y2], isPoint())) {
 //            float animationY = (x1 - x2) * imageViews[x1][y1].getHeight();
 //            float animationX = (y1 - y2) * imageViews[x1][y1].getHeight();
 //
@@ -252,6 +368,11 @@ public class GamePanelController {
             imageButton.setImageResource(R.drawable.done);
             imageButton.setClickable(false);
         }
+
+        if( isPoint() ){
+            imageButton.setImageResource(R.drawable.done_active);
+            imageButton.setClickable(true);
+        }
     }
 
 
@@ -259,119 +380,13 @@ public class GamePanelController {
         return AxisChecker.countAxis(bobbles);
     }
 
+
     public long getScore() {
         return ScoreCalculator.calculateNormalModeScore(col_size, 1, 0, 999);
     }
 
-
-    public Bobble[][] getBobbles() {
-        return bobbles;
-    }
-
-
     //初始化
-    public void init() {
-        for (int i = 0; i < col_size; ++i) {
-            for (int j = 0; j < col_size; ++j) {
-                final ImageView imageView = ImageViewFactory.getImageView(bobbles[i][j], activity, col_size, i, j);
 
-                imageViews[i][j] = imageView;
-                layout.addView(imageView);
-            }
-        }
-
-        int width = ImageViewFactory.getScreenWidth(activity);
-
-        ViewGroup.LayoutParams p = layout.getLayoutParams();
-        p.width = p.height = width;
-        layout.setLayoutParams(p);
-
-
-        reset();
-        ImageButton imageButton = (ImageButton) activity.findViewById(R.id.done_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(activity, LevelScoreActivity.class);
-                intent.putExtra("score",ScoreCalculator.calculatePointingModeScore(bobbles));
-                activity.startActivity(intent);
-                activity.finish();
-            }
-        });
-        judge();
-    }
-
-
-    //把所有的ImageView根据Bobble给初始化
-    private void reset() {
-        for (int i = 0; i < col_size; ++i) {
-            for (int j = 0; j < col_size; ++j) {
-                final int x = i;
-                final int y = j;
-                imageViews[i][j].setImageResource(bobbles[i][j].getPicID());
-                resetImageViewSize(x, y);
-
-
-                //有关混合的监听
-                if (bobbles[i][j].isPrimary() && getMixNeighbour(i, j).size() > 0) {
-                    imageViews[x][y].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            toMix(x, y);
-                        }
-                    });
-                } else {
-                    imageViews[x][y].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            reset();
-                        }
-                    });
-                }
-
-                //有关交换的监听
-                if (bobbles[i][j].getColorID() > 0) {
-                    imageViews[i][j].setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            float touchX = event.getX();
-                            float touchY = event.getY();
-
-                            float deltaX = touchX - v.getWidth() / 2;
-                            float deltaY = touchY - v.getHeight() / 2;
-                            switch (event.getActionMasked()) {
-                                case MotionEvent.ACTION_DOWN://按下的时候
-                                    break;
-                                case MotionEvent.ACTION_MOVE://移动
-                                    break;
-                                case MotionEvent.ACTION_UP://开始移动或者取消
-
-                                    if (Math.abs(deltaX) > Math.abs(deltaY)) {  //左右
-                                        if (deltaX > v.getHeight()) {  //右
-                                            swap(x, y, RIGHT);
-                                        } else if (deltaX < 0 - v.getHeight()) {  //左
-                                            swap(x, y, LEFT);
-                                        }
-                                    } else {  //上下
-                                        if (deltaY > v.getHeight()) {  //下
-                                            swap(x, y, DOWN);
-                                        } else if (deltaY < 0 - v.getHeight()) {  //上
-                                            swap(x, y, UP);
-                                        }
-                                    }
-                                    break;
-                                case MotionEvent.ACTION_OUTSIDE:
-                            }
-                            return false;
-                        }
-                    });
-                }
-
-
-            }
-        }
-    }
 
 
     private ArrayList<Pos> getMixNeighbour(int x, int y) {
@@ -390,20 +405,6 @@ public class GamePanelController {
             }
         }
         return poses;
-    }
-
-    private Pos[] getSwapNeighbour(int x, int y) {
-        return null;
-    }
-
-
-    private Pos getNeighbour(int x, int y, int position) {
-        Pos ret = new Pos(x + position % col_size, y + position / col_size);
-        if (ret.x >= 0 && ret.y >= 0 && ret.x < col_size && ret.y < col_size) {
-            return ret;
-        } else {
-            return null;
-        }
     }
 
 
