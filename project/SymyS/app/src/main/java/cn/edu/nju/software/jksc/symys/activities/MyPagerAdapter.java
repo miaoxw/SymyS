@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -58,6 +59,9 @@ public class MyPagerAdapter extends PagerAdapter {
                 @Override
                 public void onClick(View v) {
                     currentSelectLevel=currentIndex+curArg1*9;
+                    Intent intent=new Intent(context,SelectLevelActivity.class);
+                    intent.putExtra("level",currentSelectLevel);
+                    context.startActivity(intent);
                     Log.v("click",""+currentSelectLevel);
                 }
             });
