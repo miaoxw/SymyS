@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/pointer_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:id="@+id/step_ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/text_grey_color"
+            android:layout_alignParentRight="true"
+            />
+        <TextView
+            android:id="@+id/step_lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已走步数："
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/text_grey_color"
+            android:layout_toLeftOf="@+id/step"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step_ly">
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/4"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/text_grey_color"
+            android:layout_alignParentRight="true"
+            />
+
+
+        <TextView
+            android:id="@+id/score_lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前得分："
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/text_grey_color"
+            android:layout_toLeftOf="@id/score"/>
+    </RelativeLayout>
+</RelativeLayout>
