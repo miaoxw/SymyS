@@ -1,6 +1,5 @@
 package cn.edu.nju.software.jksc.symys.activities;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +12,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import cn.edu.nju.software.jksc.symys.R;
 
-public class ChooseLevelActivity extends Activity implements OnClickListener {
+public class ChooseLevelActivity extends Activity{
     private ViewPager mViewPager;
     List<View> viewList;
     private RelativeLayout chooseLevelLayout1;
@@ -43,7 +40,9 @@ public class ChooseLevelActivity extends Activity implements OnClickListener {
         viewList.add(v3);
         //实例化适配器
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new MyPagerAdapter(viewList));
+        MyPagerAdapter adapter=new MyPagerAdapter(viewList);
+        adapter.setContext(this);
+        mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(0); //设置默认当前页
 
         View view = viewList.get(0);
@@ -66,12 +65,7 @@ public class ChooseLevelActivity extends Activity implements OnClickListener {
                 }
             }
         });
-
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Log.d("click:", "" + v.getId() + " " + v.toString());
-    }
 }

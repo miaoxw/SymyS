@@ -3,6 +3,7 @@ package cn.edu.nju.software.jksc.symys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -15,6 +16,7 @@ import cn.edu.nju.software.jksc.symys.R;
 public class MyPagerAdapter extends PagerAdapter {
 
     private List<View> mListView;
+    private Context context;
 
 
     public MyPagerAdapter(List<View> mListView) {
@@ -28,6 +30,7 @@ public class MyPagerAdapter extends PagerAdapter {
         // TODO Auto-generated method stub
         ((ViewGroup)arg0).removeView(mListView.get(arg1));
     }
+
 
     @Override
     public void finishUpdate(View arg0) {
@@ -55,24 +58,44 @@ public class MyPagerAdapter extends PagerAdapter {
                 }
             });
         }
-        if(arg1==0){
-            Button bt=(Button)arg0.findViewById(R.id.button1);
-            bt.setBackgroundResource(R.drawable.chooselevelbtn_unlocked_blue_1);
-            Log.d("0:",""+bt.getId());
+        boolean levelStatus[][]=ChooseButtonFactory.getCurrentLevelStatus(context, arg1);
+        Integer lockedRes=ChooseButtonFactory.getButtonImgResLocked(arg1);
+        ArrayList<Integer> selectRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.SELECT);
+        ArrayList<Integer> unlockedRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.UNLOCKED);
+
+        int lastestIndex=-1;
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(levelStatus[i][j]){
+                    lastestIndex=i*3+j;
+                    buttons.get(i*3+j).setBackgroundResource(unlockedRes.get(i*3+j));
+                }else{
+                    if(i*3+j-1==lastestIndex){
+                        buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
+                    }else{
+                        buttons.get(i*3+j).setBackgroundResource(lockedRes);
+                    }
+
+                }
+            }
         }
-        if(arg1==1){
-            Button bt=(Button)arg0.findViewById(R.id.button1);
-            bt.setBackgroundResource(R.drawable.chooselevelbtn_select_blue_2);
-            Log.d("1:",""+bt.getId());
-        }
-        if(arg1==2){
-            Button bt=(Button)arg0.findViewById(R.id.button1);
-            bt.setBackgroundResource(R.drawable.chooselevelbtn_locked_blue);
-            Log.d("2:",""+bt.getId());
-        }
+//        if(arg1==0){
+//            Button bt=(Button)arg0.findViewById(R.id.button1);
+//            bt.setBackgroundResource(R.drawable.chooselevelbtn_unlocked_blue_1);
+//            Log.d("0:",""+bt.getId());
+//        }
+//        if(arg1==1){
+//            Button bt=(Button)arg0.findViewById(R.id.button1);
+//            bt.setBackgroundResource(R.drawable.chooselevelbtn_select_blue_2);
+//            Log.d("1:",""+bt.getId());
+//        }
+//        if(arg1==2){
+//            Button bt=(Button)arg0.findViewById(R.id.button1);
+//            bt.setBackgroundResource(R.drawable.chooselevelbtn_locked_blue);
+//            Log.d("2:",""+bt.getId());
+//        }
         return mListView.get(arg1);
     }
-
     // 判断是否由对象生成界面
     public boolean isViewFromObject(View arg0, Object arg1) {
         // TODO Auto-generated method stub
@@ -95,6 +118,9 @@ public class MyPagerAdapter extends PagerAdapter {
     public void startUpdate(View arg0) {
         // TODO Auto-generated method stub
 
+    }
+    public void setContext(Context context){
+        this.context=context;
     }
 
 }

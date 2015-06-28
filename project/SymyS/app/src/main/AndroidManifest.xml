@@ -18,11 +18,7 @@
         <activity
             android:name=".activities.SelectLevelActivity"
             android:label="@string/title_activity_select_level" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.LevelScoreActivity"
@@ -35,6 +31,11 @@
         <activity
             android:name=".activities.ChooseLevelActivity"
             android:label="@string/title_activity_choose_level" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
