@@ -32,6 +32,10 @@
             android:name=".activities.ScoreActivity"
             android:label="@string/title_activity_score" >
         </activity>
+        <activity
+            android:name=".activities.ChooseLevelActivity"
+            android:label="@string/title_activity_choose_level" >
+        </activity>
     </application>
 
 </manifest>
