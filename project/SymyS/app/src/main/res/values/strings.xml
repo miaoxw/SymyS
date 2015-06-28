@@ -12,4 +12,5 @@
     <string name="title_activity_level_score">LevelScoreActivity</string>
     <string name="title_activity_score">ScoreActivity</string>
     <string name="title_activity_choose_level">ChooseLevelActivity</string>
+    <string name="welcome_activity">WelcomelActivity</string>
 </resources>

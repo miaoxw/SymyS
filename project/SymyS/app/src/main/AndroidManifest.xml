@@ -31,9 +31,16 @@
         <activity
             android:name=".activities.ChooseLevelActivity"
             android:label="@string/title_activity_choose_level" >
+        </activity>
+        <activity
+            android:name=".activities.MainMenuActivity"
+            android:label="@string/title_activity_choose_level" >
+        </activity>
+        <activity
+            android:name=".activities.WelcomeActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
