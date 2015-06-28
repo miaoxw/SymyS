@@ -1,4 +1,4 @@
-package cn.edu.nju.software.jksc.symys;
+package cn.edu.nju.software.jksc.symys.controller;
 
 
 import android.app.Activity;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import cn.edu.nju.software.jksc.symys.R;
 import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
 import cn.edu.nju.software.jksc.symys.algorithm.ScoreCalculator;
 import cn.edu.nju.software.jksc.symys.common.Bobble;
