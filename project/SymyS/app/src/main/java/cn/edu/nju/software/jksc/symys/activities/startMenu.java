@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
 import cn.edu.nju.software.jksc.symys.R;
@@ -22,11 +24,18 @@ public class startMenu extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(startMenu.this, GamePanel.class);
-                startActivity(intent);
+                finish();
             }
         });
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        Animation translate = new TranslateAnimation(0,getResources().getDimension(R.dimen.ball_size),0,getResources().getDimension(R.dimen.ball_size));
+        translate.setDuration(200);
+        this.overridePendingTransition(R.anim.activity_close,0);
     }
 
     @Override

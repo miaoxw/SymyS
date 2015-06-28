@@ -1,4 +1,4 @@
-package cn.edu.nju.software.jksc.symys;
+package cn.edu.nju.software.jksc.symys.controller;
 
 /**
  * Created by Xc on 2015/6/21.
