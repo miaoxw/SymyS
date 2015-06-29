@@ -10,9 +10,14 @@
 
     <RelativeLayout
         android:id="@+id/header"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
 
     </RelativeLayout>
@@ -22,20 +27,20 @@
         android:layout_height= "wrap_content"
         android:layout_below="@id/header"
         android:layout_centerHorizontal="true"
-        >
+        android:layout_marginTop="80dp">
 
 
     </FrameLayout>
 
     <ImageButton
         android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:id="@+id/done_button"
         android:layout_below="@+id/main_panel"
         android:scaleType="fitXY"
         android:background="#00000000"
         android:src="@drawable/done"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="78dp"
         android:layout_centerHorizontal="true"
      />
 

@@ -4,51 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        android:id="@+id/step_ly"
+
+    <TextView
+        android:id="@+id/step_lb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
-        <TextView
-            android:id="@+id/step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5"
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_alignParentRight="true"
-            />
-        <TextView
-            android:id="@+id/step_lb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已走步数："
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_toLeftOf="@+id/step"/>
-    </RelativeLayout>
-    <RelativeLayout
+        android:text="已走步数："
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_toLeftOf="@+id/step" />
+
+    <TextView
+        android:id="@+id/step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/step_ly">
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0/4"
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_alignParentRight="true"
-            />
+        android:text="5"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3700"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_toEndOf="@+id/score_lb"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/score_lb" />
 
-        <TextView
-            android:id="@+id/score_lb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="当前得分："
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_toLeftOf="@id/score"/>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/score_lb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前得分："
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
 </RelativeLayout>
