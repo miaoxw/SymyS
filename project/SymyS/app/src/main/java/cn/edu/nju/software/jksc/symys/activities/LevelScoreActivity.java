@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,8 +75,10 @@ public class LevelScoreActivity extends Activity {
     private void next(){
         Intent intent = new Intent(LevelScoreActivity.this,GamePanel.class);
         intent.putExtra("gameData", gameData);
-        int level =(Integer)gameData.get("level");
-        gameData.put("level", level+1);
+        gameData.put("level", 1 + (Integer) gameData.get("level"));
+        Log.v("level", gameData.get("level").toString());
+        Log.v("max_",gameData.get("currentMax").toString());
+
         finish();
         startActivity(intent);
     }

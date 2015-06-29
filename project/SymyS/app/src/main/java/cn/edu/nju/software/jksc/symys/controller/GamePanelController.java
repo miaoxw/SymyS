@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.edu.nju.software.jksc.symys.R;
+import cn.edu.nju.software.jksc.symys.activities.ChooseButtonFactory;
 import cn.edu.nju.software.jksc.symys.activities.LevelScoreActivity;
 import cn.edu.nju.software.jksc.symys.activities.ScoreActivity;
 import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
@@ -90,21 +90,32 @@ public class GamePanelController {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                if (isPoint()) {
-                    intent = new Intent(activity, ScoreActivity.class);
-                } else {
-                    intent = new Intent(activity, LevelScoreActivity.class);
-                }
-                intent.putExtra("score", ScoreCalculator.calculatePointingModeScore(bobbles));
-                intent.putExtra("gameData", gameData);
-                activity.startActivity(intent);
-                activity.finish();
+               done();
             }
         });
         judge();
     }
 
+    private void done(){
+        Intent intent;
+        if (isPoint()) {
+            intent = new Intent(activity, ScoreActivity.class);
+        } else {
+            intent = new Intent(activity, LevelScoreActivity.class);
+        }
+        intent.putExtra("score", ScoreCalculator.calculatePointingModeScore(bobbles));
+        intent.putExtra("gameData", gameData);
+
+        if(!isPoint()){
+            int level =(Integer)gameData.get("level");
+
+            int currentMax = (Integer) gameData.get("currentMax");
+            gameData.put("currentMax", currentMax >= level ? currentMax : level);
+            ChooseButtonFactory.setCurrentLevelStatus(activity, currentMax >= (level) ? currentMax : level);
+        }
+        activity.startActivity(intent);
+        activity.finish();
+    }
 
     //把所有的ImageView根据Bobble给初始化
     private void reset() {
@@ -257,7 +268,6 @@ public class GamePanelController {
                         if (msg.what == 0x2333) {
                             fim1.startAnimation(translateAnimation1);
                             fim2.startAnimation(translateAnimation2);
-                            Log.v("aniiiiii", "aniiiiiiiiiiiiii");
                         }
                     }
                 };
