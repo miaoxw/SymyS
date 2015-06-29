@@ -68,7 +68,12 @@ public class LevelScoreActivity extends Activity {
     }
 
     private void next(){
-
+        Intent intent = new Intent(LevelScoreActivity.this,GamePanel.class);
+        intent.putExtra("gameData", gameData);
+        int level =(Integer)gameData.get("level");
+        gameData.put("level", level+1);
+        finish();
+        startActivity(intent);
     }
 
     private void replay(){
@@ -76,8 +81,6 @@ public class LevelScoreActivity extends Activity {
         intent.putExtra("gameData", gameData);
         finish();
         startActivity(intent);
-
-
     }
 
     @Override

@@ -7,10 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".activities.startMenu"
-            android:label="@string/title_activity_start_menu" >
-        </activity>
+
         <activity
             android:name=".activities.GamePanel"
             android:label="@string/title_activity_game_panel" >

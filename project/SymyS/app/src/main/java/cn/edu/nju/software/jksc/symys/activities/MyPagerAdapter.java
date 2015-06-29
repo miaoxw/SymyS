@@ -1,6 +1,7 @@
 package cn.edu.nju.software.jksc.symys.activities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -60,8 +61,11 @@ public class MyPagerAdapter extends PagerAdapter {
                 public void onClick(View v) {
                     currentSelectLevel=currentIndex+curArg1*9;
                     if(currentSelectLevel<=currentAccessLevel){
-                        Intent intent=new Intent(context,SelectLevelActivity.class);
-                        intent.putExtra("level",currentSelectLevel);
+                        Intent intent=new Intent(context,GamePanel.class);
+                        HashMap<String,Object> gameData = new HashMap<>();
+                        gameData.put("type","level");
+                        gameData.put("level",currentSelectLevel);
+                        intent.putExtra("gameData",gameData);
                         context.startActivity(intent);
                         Log.v("click",""+currentSelectLevel);
                     }

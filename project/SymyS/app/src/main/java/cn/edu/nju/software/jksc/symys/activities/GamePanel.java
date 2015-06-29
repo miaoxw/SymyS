@@ -30,25 +30,24 @@ public class GamePanel extends Activity {
 
 
     GamePanelController gc;
+    HashMap<String,Object> gameData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_panel);
-        HashMap<String,Object> gameData;
         Bobble[][] colors = null;
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 "font/FZXY.ttf");
+
         if(isLevel()){
-            gameData = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");
-            gameData = new HashMap<>();
-            gameData.put("type", "level");
             int size = 4;
             int axises = 1;
             int colorSum = 3;
             colors = MapGenerator.generate(size, axises, 0, 40, colorSum);
             MyShowCase.show(this, R.layout.level_helping, "level-help");
+
             ViewGroup header = (ViewGroup) findViewById(R.id.header);
             View view = LayoutInflater.from(this).inflate(R.layout.level_header, null);
             header.addView(view);
@@ -56,9 +55,7 @@ public class GamePanel extends Activity {
 
 
             TextView tx = (TextView)findViewById(R.id.axis_lb);
-
             tx.setTypeface(custom_font);
-
             tx = (TextView)findViewById(R.id.axis);
             tx.setTypeface(custom_font);
             tx = (TextView)findViewById(R.id.step);
@@ -66,17 +63,16 @@ public class GamePanel extends Activity {
             tx = (TextView)findViewById(R.id.step_lb);
             tx.setTypeface(custom_font);
         }else{
-            gameData = new HashMap<>();
-            gameData.put("type","point");
             colors = MapGenerator.generatePointingMode();
             MyShowCase.show(this, R.layout.point_helping, "point-help");
+
+
             ViewGroup header = (ViewGroup) findViewById(R.id.header);
             View view = LayoutInflater.from(this).inflate(R.layout.point_header, null);
             header.addView(view);
+
             TextView tx = (TextView)findViewById(R.id.score_lb);
-
             tx.setTypeface(custom_font);
-
             tx = (TextView)findViewById(R.id.score);
             tx.setTypeface(custom_font);
             tx = (TextView)findViewById(R.id.step);
@@ -95,9 +91,18 @@ public class GamePanel extends Activity {
 
     private boolean isLevel() {
         if(getIntent().hasExtra("gameData")){
-            HashMap<String,Object> data = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");
-            if(data.get("type").equals("level")){
+            gameData = (HashMap<String,Object>)getIntent().getSerializableExtra("gameData");
+            if(gameData.get("type").equals("level")){
                 return true;
+            }
+        } else {
+            gameData = new HashMap<>();
+            if(getIntent().getStringExtra("type").equals("level")){
+                gameData = new HashMap<>();
+                gameData.put("type", "level");
+                gameData.put("level", getIntent().getIntExtra("level",1));
+            }else{
+                gameData.put("type","point");
             }
         }
 

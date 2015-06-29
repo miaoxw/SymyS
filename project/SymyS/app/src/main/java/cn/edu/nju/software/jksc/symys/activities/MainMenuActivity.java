@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.HashMap;
+
 import cn.edu.nju.software.jksc.symys.R;
 
 /**
@@ -29,6 +31,9 @@ public class MainMenuActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainMenuActivity.this,GamePanel.class);
+                HashMap<String,Object> gameData = new HashMap<>();
+                gameData.put("type","point");
+                intent.putExtra("gameData",gameData);
                 startActivity(intent);
             }
         });
