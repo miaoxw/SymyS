@@ -1,7 +1,5 @@
 package cn.edu.nju.software.jksc.symys.algorithm;
 
-import android.util.Log;
-
 import cn.edu.nju.software.jksc.symys.common.Bobble;
 
 /**
@@ -13,10 +11,6 @@ public class AxisChecker
 	{
 		int ret=0;
 
-		Log.d("result","vertical"+checkVertical(src));
-		Log.d("result","horizontal"+checkHorizontal(src));
-		Log.d("result","lean1"+checkLean1(src));
-		Log.d("result","lean2"+checkLean2(src));
 		if(checkVertical(src))
 			ret++;
 		if(checkHorizontal(src))

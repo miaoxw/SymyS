@@ -1,7 +1,5 @@
 package cn.edu.nju.software.jksc.symys.algorithm;
 
-import android.util.Log;
-
 import java.util.Random;
 
 import cn.edu.nju.software.jksc.symys.common.Bobble;
@@ -36,8 +34,6 @@ final class AlgorithmPointing extends GeneratingAlgorithm
 		{
 			newBobble=Bobble.getRandomPrimaryBobble(colorTypeCount);
 		}while(ret[x][y].equals(newBobble));
-		Log.d("pointing",ret[x][y].toString());
-		Log.d("pointing",newBobble.toString());
 		ret[x][y].mixWith(newBobble);
 
 		return ret;
