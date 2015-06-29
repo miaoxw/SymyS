@@ -62,40 +62,28 @@ public class GamePanel extends Activity {
             tx.setTypeface(custom_font);
             tx = (TextView)findViewById(R.id.step_lb);
             tx.setTypeface(custom_font);
-        }else{
-            colors = MapGenerator.generatePointingMode();
-            MyShowCase.show(this, R.layout.point_helping, "point-help");
+        }else
+        {
+            colors=MapGenerator.generatePointingMode();
+            MyShowCase.show(this,R.layout.point_helping,"point-help");
 
 
-            ViewGroup header = (ViewGroup) findViewById(R.id.header);
-            View view = LayoutInflater.from(this).inflate(R.layout.point_header, null);
+            ViewGroup header=(ViewGroup)findViewById(R.id.header);
+            View view=LayoutInflater.from(this).inflate(R.layout.point_header,null);
             header.addView(view);
 
-            TextView tx = (TextView)findViewById(R.id.score_lb);
+            TextView tx=(TextView)findViewById(R.id.score_lb);
             tx.setTypeface(custom_font);
-            tx = (TextView)findViewById(R.id.score);
+            tx=(TextView)findViewById(R.id.score);
             tx.setTypeface(custom_font);
-            tx = (TextView)findViewById(R.id.step);
+            tx=(TextView)findViewById(R.id.step);
             tx.setTypeface(custom_font);
-            tx = (TextView)findViewById(R.id.step_lb);
+            tx=(TextView)findViewById(R.id.step_lb);
             tx.setTypeface(custom_font);
 
-<<<<<<< HEAD
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.main_panel);
-        Bobble[][] colors = MapGenerator.generate(6,1,0,40);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
-
-        frameLayout.setMinimumHeight(params.width);
-
-=======
+            gc=new GamePanelController(colors,gameData,this);
+            gc.init();
         }
->>>>>>> 4-Color
-
-        gc = new GamePanelController(colors, gameData,this);
-        gc.init();
-
-
-
     }
 
     private boolean isLevel() {
