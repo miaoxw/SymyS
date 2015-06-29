@@ -13,9 +13,7 @@ public class MapGenerator
 	static
 	{
 		algorithmMatrix=new GeneratingAlgorithm[7][5];
-		algorithmMatrix[3][1]=new Algorithm3x3_1();
-		algorithmMatrix[3][2]=new Algorithm3x3_2();
-		algorithmMatrix[3][4]=new Algorithm3x3_4();
+		algorithmMatrix[0][0]=new AlgorithmPointing();
 		algorithmMatrix[4][1]=new Algorithm4x4_1();
 		algorithmMatrix[4][2]=new Algorithm4x4_2();
 		algorithmMatrix[4][4]=new Algorithm4x4_4();
@@ -27,7 +25,23 @@ public class MapGenerator
 		algorithmMatrix[6][4]=new Algorithm6x6_4();
 	}
 
+<<<<<<< HEAD
 	public static Bobble[][] generate(int gridSize,int numOfAxis,int numOfMix,int step)
+=======
+	public static Bobble[][] generatePointingMode()
+	{
+		try
+		{
+			return algorithmMatrix[0][0].generate(0,3);
+		}
+		catch(ParameterInvalidException e)
+		{
+			return null;
+		}
+	}
+
+	public static Bobble[][] generate(int gridSize,int numOfAxis,int numOfMix,int step,int colorNum)
+>>>>>>> 4-Color
 	{
 		if(gridSize<3||gridSize>6||numOfAxis<1||numOfAxis>4)
 			return null;

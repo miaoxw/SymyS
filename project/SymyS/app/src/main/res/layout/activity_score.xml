@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_centerVertical="true"
+    tools:context="cn.edu.nju.software.jksc.symys.activities.LevelScoreActivity"
+    android:background="@drawable/background">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        >
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SCORE:"
+            android:textSize="@dimen/scorepanel_text_size"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_marginTop="-10dp"
+            android:id="@+id/score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23333"
+            android:textSize="@dimen/scorepanel_text_size"
+            android:layout_below="@id/header"
+            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_margin="30dp"
+            android:id="@+id/score_replay"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/score_replay"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/score_tv" />
+
+        <ImageView
+            android:layout_margin="20dp"
+            android:id="@+id/score_home"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/score_home"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/score_replay" />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

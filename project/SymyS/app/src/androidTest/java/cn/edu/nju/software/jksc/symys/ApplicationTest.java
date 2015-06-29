@@ -15,7 +15,5 @@ public class ApplicationTest extends ApplicationTestCase<Application>
 	{
 		super(Application.class);
 
-        Bobble[][] bobbles = MapGenerator.generate(3, 1, 1, 4);
-        assert bobbles.length !=0;
 	}
 }
