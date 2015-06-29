@@ -104,7 +104,7 @@ public class GamePanelController {
         } else {
             intent = new Intent(activity, LevelScoreActivity.class);
         }
-        intent.putExtra("score", ScoreCalculator.calculatePointingModeScore(bobbles));
+        intent.putExtra("score", getScore());
         intent.putExtra("gameData", gameData);
 
         if(!isPoint()){
