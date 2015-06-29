@@ -4,51 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        android:id="@+id/step_ly"
+
+    <TextView
+        android:id="@+id/step_lb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
-        <TextView
-            android:id="@+id/step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5"
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_alignParentRight="true"
-            />
-        <TextView
-            android:id="@+id/step_lb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="剩余步数："
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_toLeftOf="@+id/step"/>
-    </RelativeLayout>
-    <RelativeLayout
+        android:text="剩余步数："
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentRight="false"
+        android:layout_toLeftOf="@+id/step" />
+
+    <TextView
+        android:id="@+id/step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/step_ly">
-        <TextView
-            android:id="@+id/axis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0/4"
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_alignParentRight="true"
-            />
+        android:text="5"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignTop="@+id/step_lb"
+        android:layout_alignParentRight="true" />
 
+    <TextView
+        android:id="@+id/axis_lb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="对称轴数："
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/axis_lb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="对称轴："
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/text_grey_color"
-            android:layout_toLeftOf="@id/axis"/>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/axis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/4"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/text_grey_color"
+        android:layout_alignTop="@+id/axis_lb"
+        android:layout_toRightOf="@+id/axis_lb" />
+
 </RelativeLayout>

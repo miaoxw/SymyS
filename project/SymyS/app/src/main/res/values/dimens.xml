@@ -3,7 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="ball_size">40dp</dimen>
-    <dimen name="text_size">40dp</dimen>
+    <dimen name="text_size">20dp</dimen>
     <dimen name="scorepanel_text_size">60dp</dimen>
+    <dimen name="scorepanel_best_size">27dp</dimen>
 
 </resources>

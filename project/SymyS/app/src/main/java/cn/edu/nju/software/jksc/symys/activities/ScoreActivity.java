@@ -25,6 +25,7 @@ public class ScoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
         TextView tx = (TextView)findViewById(R.id.header);
+        TextView best_score = (TextView) findViewById(R.id.best_score);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 "font/HarringtON.TTF");
         tx.setTypeface(custom_font);
@@ -33,6 +34,9 @@ public class ScoreActivity extends Activity {
         tx.setTypeface(custom_font);
 
         tx.setText("" + getIntent().getLongExtra("score", -1L));
+
+        best_score.setTypeface(custom_font);
+        best_score.setText("BestScore:" + "23333");
 
         gameData = (HashMap<String,Object>) getIntent().getSerializableExtra("gameData");
 
