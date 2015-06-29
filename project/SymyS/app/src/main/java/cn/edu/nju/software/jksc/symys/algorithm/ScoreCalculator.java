@@ -63,8 +63,11 @@ public class ScoreCalculator
 		return ret;
 	}
 
-	public static long calculateNormalModeScore(int axisCount,int remainStep,int numberOfMix,int elapsedTime)
+	public static long calculateNormalModeScore(Bobble[][] src,int remainStep,int elapsedTime)
 	{
+		int axisCount=AxisChecker.countAxis(src);
+		int numberOfMix=BobbleChecker.countMixBobble(src);
+
 		long axisScore=0,stepScore=0,mixScore=0,timeScore=0;
 		for(int i=1;i<=axisCount;i++)
 			axisScore+=i*i*AXIS_BONUS;

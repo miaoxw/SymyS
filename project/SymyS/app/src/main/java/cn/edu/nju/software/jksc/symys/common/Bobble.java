@@ -137,6 +137,11 @@ public class Bobble implements Cloneable
 		return color==RED_INDEX||color==YELLOW_INDEX||color==BLUE_INDEX||color==BLACK_INDEX;
 	}
 
+	public boolean isMixed()
+	{
+		return isBobble()&&!isPrimary();
+	}
+
 	public boolean isBobble()
 	{
 		for(Bobble bobble:AVAILABLE_BOBBLES)
