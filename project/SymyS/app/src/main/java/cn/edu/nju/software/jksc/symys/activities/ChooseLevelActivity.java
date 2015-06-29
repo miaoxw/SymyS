@@ -3,6 +3,7 @@ package cn.edu.nju.software.jksc.symys.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,9 +18,8 @@ import cn.edu.nju.software.jksc.symys.R;
 public class ChooseLevelActivity extends Activity{
     private ViewPager mViewPager;
     List<View> viewList;
-    private RelativeLayout chooseLevelLayout1;
-    private RelativeLayout chooseLevelLayout2;
     private static final int SIZE = 3;
+    MyPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class ChooseLevelActivity extends Activity{
         viewList.add(v3);
         //实例化适配器
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        MyPagerAdapter adapter=new MyPagerAdapter(viewList);
+        adapter=new MyPagerAdapter(viewList);
         adapter.setContext(this);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(0); //设置默认当前页
@@ -64,6 +64,19 @@ public class ChooseLevelActivity extends Activity{
                 }
             }
         });
+        //ChooseButtonFactory.setCurrentLevelStatus(this, 10);
+        //Log.d("levelStatusUpdate:",ChooseButtonFactory.getStatusString(this)+":::end");
+    }
+
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.v("resume", "");
+        adapter.updateView(viewList.get(0), 0);
+        adapter.updateView(viewList.get(1),1);
+        adapter.updateView(viewList.get(2),2);
     }
 
 

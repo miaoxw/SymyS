@@ -39,7 +39,6 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public void finishUpdate(View arg0) {
         // TODO Auto-generated method stub
-
     }
 
     ////获取当前窗体界面数
@@ -51,6 +50,7 @@ public class MyPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(View arg0, int arg1) {
         // TODO Auto-generated method stub
+        Log.v("inistantiateIem","");
         ((ViewGroup)arg0).addView(mListView.get(arg1), 0);
         ArrayList<Button> buttons=ChooseButtonFactory.getButtonList(arg0);
         final int curArg1=arg1;
@@ -119,14 +119,54 @@ public class MyPagerAdapter extends PagerAdapter {
         // TODO Auto-generated method stub
         return null;
     }
+//    @Override
+//    public int getItemPosition(Object object){
+//
+//        return POSITION_NONE;
+//    }
 
     @Override
     public void startUpdate(View arg0) {
         // TODO Auto-generated method stub
+        super.startUpdate(arg0);
+        Log.v("startUPdate","");
+//        for(int i=0;i<mListView.size();i++){
+//            if(arg0.equals(mListView.get(i))){
+//                updateView(arg0,i);
+//            }
+//        }
 
     }
     public void setContext(Context context){
         this.context=context;
     }
+
+    public void updateView(View arg0, int arg1){
+        Log.v("updateView","");
+        ArrayList<Button> buttons=ChooseButtonFactory.getButtonList(arg0);
+        boolean levelStatus[][]=ChooseButtonFactory.getCurrentLevelStatus(context, arg1);
+        Integer lockedRes=ChooseButtonFactory.getButtonImgResLocked(arg1);
+        ArrayList<Integer> selectRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.SELECT);
+        ArrayList<Integer> unlockedRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.UNLOCKED);
+        int lastestIndex=-1;
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(levelStatus[i][j]){
+                    lastestIndex=arg1+i*3+j;
+                    currentAccessLevel=lastestIndex+1;
+                    currentMaxLevel=lastestIndex;
+                    buttons.get(i*3+j).setBackgroundResource(unlockedRes.get(i*3+j));
+                }else{
+                    if(arg1+i*3+j-1==lastestIndex){
+                        buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
+                    }else{
+                        buttons.get(i*3+j).setBackgroundResource(lockedRes);
+                    }
+
+                }
+            }
+        }
+    }
+
 
 }
