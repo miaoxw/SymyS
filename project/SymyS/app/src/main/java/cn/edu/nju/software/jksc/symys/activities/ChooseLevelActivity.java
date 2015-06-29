@@ -64,7 +64,7 @@ public class ChooseLevelActivity extends Activity{
                 }
             }
         });
-        ChooseButtonFactory.setCurrentLevelStatus(this, 8);
+       // ChooseButtonFactory.setCurrentLevelStatus(this, 8);
         Log.d("levelStatusUpdate:",ChooseButtonFactory.getStatusString(this)+":::end");
     }
 
