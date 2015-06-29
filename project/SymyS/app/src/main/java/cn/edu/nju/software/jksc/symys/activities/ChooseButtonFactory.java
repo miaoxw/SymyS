@@ -100,6 +100,27 @@ public class ChooseButtonFactory {
         return integer;
     }
 
+    public static int getCurrentMaxLevel(Context context){
+        SharedPreferences pref=context.getSharedPreferences(saveFileName,Context.MODE_PRIVATE);
+        String statusStr=pref.getString("levelStatus",null);
+        Log.v("getCMaxgetResult:",""+((statusStr==null)? "null":statusStr));
+        int currentMaxLevel=-1;
+        if(statusStr!=null){
+            for(int i=0;i<27;i++){
+                if(statusStr.charAt(i)=='0'){
+                    Log.v("getCM:","1");
+                    currentMaxLevel=i-1;
+                    break;
+                }
+            }
+        }
+        if(currentMaxLevel>26){
+            currentMaxLevel=26;
+        }
+        Log.v("getCurrentMaxLevel:",""+currentMaxLevel);
+        return currentMaxLevel;
+    }
+
     public static boolean[][] getCurrentLevelStatus(Context context,int viewId){
         int curBase=viewId*9;
         boolean[][] status=new boolean[3][3];

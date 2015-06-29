@@ -20,7 +20,6 @@ public class MyPagerAdapter extends PagerAdapter {
     private List<View> mListView;
     private Context context;
     private int currentSelectLevel=0;
-    private int currentAccessLevel=0;
     private int currentMaxLevel=-1;
 
     public MyPagerAdapter(List<View> mListView) {
@@ -61,7 +60,9 @@ public class MyPagerAdapter extends PagerAdapter {
                 @Override
                 public void onClick(View v) {
                     currentSelectLevel=currentIndex+curArg1*9;
-                    if(currentSelectLevel<=currentAccessLevel){
+                    currentMaxLevel=ChooseButtonFactory.getCurrentMaxLevel(context);
+                    if(currentSelectLevel<=currentMaxLevel+1){
+                        Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+(currentMaxLevel+1));
                         Intent intent=new Intent(context,GamePanel.class);
                         HashMap<String,Object> gameData = new HashMap<>();
                         gameData.put("type","level");
@@ -71,32 +72,26 @@ public class MyPagerAdapter extends PagerAdapter {
                         context.startActivity(intent);
                         Log.v("click",""+currentSelectLevel);
                     }
-                    Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+currentAccessLevel);
+                    Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+(currentMaxLevel+1));
                     Log.v("currentMaxLevel",""+currentMaxLevel);
 
                 }
             });
         }
-        boolean levelStatus[][]=ChooseButtonFactory.getCurrentLevelStatus(context, arg1);
+//        boolean levelStatus[][]=ChooseButtonFactory.getCurrentLevelStatus(context, arg1);
         Integer lockedRes=ChooseButtonFactory.getButtonImgResLocked(arg1);
         ArrayList<Integer> selectRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.SELECT);
         ArrayList<Integer> unlockedRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.UNLOCKED);
 
-        int lastestIndex=-1;
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                if(levelStatus[i][j]){
-                    lastestIndex=arg1+i*3+j;
-                    currentAccessLevel=lastestIndex+1;
-                    currentMaxLevel=lastestIndex;
+                int temp_level=arg1*9+i*3+j;
+                if(temp_level<=currentMaxLevel){
                     buttons.get(i*3+j).setBackgroundResource(unlockedRes.get(i*3+j));
+                }else if(temp_level==currentMaxLevel+1){
+                    buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
                 }else{
-                    if(arg1+i*3+j-1==lastestIndex){
-                        buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
-                    }else{
-                        buttons.get(i*3+j).setBackgroundResource(lockedRes);
-                    }
-
+                    buttons.get(i*3+j).setBackgroundResource(lockedRes);
                 }
             }
         }
@@ -144,28 +139,24 @@ public class MyPagerAdapter extends PagerAdapter {
     public void updateView(View arg0, int arg1){
         Log.v("updateView","");
         ArrayList<Button> buttons=ChooseButtonFactory.getButtonList(arg0);
-        boolean levelStatus[][]=ChooseButtonFactory.getCurrentLevelStatus(context, arg1);
+//        boolean levelStatus[][]=ChooseButtonFactory.getCurrentLevelStatus(context, arg1);
         Integer lockedRes=ChooseButtonFactory.getButtonImgResLocked(arg1);
         ArrayList<Integer> selectRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.SELECT);
         ArrayList<Integer> unlockedRes=ChooseButtonFactory.getButtonImgRes(arg1,ChooseButtonType.UNLOCKED);
-        int lastestIndex=-1;
+        currentMaxLevel=ChooseButtonFactory.getCurrentMaxLevel(context);
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                if(levelStatus[i][j]){
-                    lastestIndex=arg1+i*3+j;
-                    currentAccessLevel=lastestIndex+1;
-                    currentMaxLevel=lastestIndex;
+                int temp_level=arg1*9+i*3+j;
+                if(temp_level<=currentMaxLevel){
                     buttons.get(i*3+j).setBackgroundResource(unlockedRes.get(i*3+j));
+                }else if(temp_level==currentMaxLevel+1){
+                    buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
                 }else{
-                    if(arg1+i*3+j-1==lastestIndex){
-                        buttons.get(i*3+j).setBackgroundResource(selectRes.get(i*3+j));
-                    }else{
-                        buttons.get(i*3+j).setBackgroundResource(lockedRes);
-                    }
-
+                    buttons.get(i*3+j).setBackgroundResource(lockedRes);
                 }
             }
         }
+//
     }
 
 
