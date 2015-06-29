@@ -10,31 +10,38 @@
 
         <activity
             android:name=".activities.GamePanel"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_game_panel" >
         </activity>
         <activity
             android:name=".activities.SelectLevelActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_select_level" >
 
         </activity>
         <activity
             android:name=".activities.LevelScoreActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_level_score" >
         </activity>
         <activity
             android:name=".activities.ScoreActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_score" >
         </activity>
         <activity
             android:name=".activities.ChooseLevelActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_choose_level" >
         </activity>
         <activity
             android:name=".activities.MainMenuActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_choose_level" >
         </activity>
         <activity
             android:name=".activities.WelcomeActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
