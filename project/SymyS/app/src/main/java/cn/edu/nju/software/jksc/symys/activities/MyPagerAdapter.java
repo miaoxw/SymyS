@@ -72,8 +72,8 @@ public class MyPagerAdapter extends PagerAdapter {
                         context.startActivity(intent);
                         Log.v("click",""+currentSelectLevel);
                     }
-                    Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+(currentMaxLevel+1));
-                    Log.v("currentMaxLevel",""+currentMaxLevel);
+                    //Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+(currentMaxLevel+1));
+                    //Log.v("currentMaxLevel",""+currentMaxLevel);
 
                 }
             });

@@ -103,7 +103,7 @@ public class ChooseButtonFactory {
     public static int getCurrentMaxLevel(Context context){
         SharedPreferences pref=context.getSharedPreferences(saveFileName,Context.MODE_PRIVATE);
         String statusStr=pref.getString("levelStatus",null);
-        Log.v("getCMaxgetResult:",""+((statusStr==null)? "null":statusStr));
+        //Log.v("getCMaxgetResult:",""+((statusStr==null)? "null":statusStr));
         int currentMaxLevel=-1;
         if(statusStr!=null){
             for(int i=0;i<27;i++){
@@ -117,7 +117,7 @@ public class ChooseButtonFactory {
         if(currentMaxLevel>26){
             currentMaxLevel=26;
         }
-        Log.v("getCurrentMaxLevel:",""+currentMaxLevel);
+        //Log.v("getCurrentMaxLevel:",""+currentMaxLevel);
         return currentMaxLevel;
     }
 
@@ -162,7 +162,7 @@ public class ChooseButtonFactory {
             }
             editor.putString("levelStatus", sbf.toString());
             editor.commit();
-            Log.v("set:", "" + level+" :str:"+sbf.toString());
+            //Log.v("set:", "" + level+" :str:"+sbf.toString());
     }
 
     public static String getStatusString(Context context){

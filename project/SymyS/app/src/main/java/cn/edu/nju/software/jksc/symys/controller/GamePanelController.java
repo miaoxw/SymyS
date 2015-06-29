@@ -112,7 +112,6 @@ public class GamePanelController {
 
             int currentMax = (Integer) gameData.get("currentMax");
             gameData.put("currentMax", currentMax >= level ? currentMax : level);
-            Log.v("currentMax+level",""+currentMax+" "+level);
             ChooseButtonFactory.setCurrentLevelStatus(activity, currentMax >= (level) ? currentMax : level);
         }
         activity.startActivity(intent);
