@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +112,7 @@ public class GamePanelController {
 
             int currentMax = (Integer) gameData.get("currentMax");
             gameData.put("currentMax", currentMax >= level ? currentMax : level);
+            Log.v("currentMax+level",""+currentMax+" "+level);
             ChooseButtonFactory.setCurrentLevelStatus(activity, currentMax >= (level) ? currentMax : level);
         }
         activity.startActivity(intent);

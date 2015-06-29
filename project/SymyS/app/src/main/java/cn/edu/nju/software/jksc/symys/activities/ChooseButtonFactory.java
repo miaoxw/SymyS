@@ -154,7 +154,7 @@ public class ChooseButtonFactory {
             SharedPreferences.Editor editor=sp.edit();
             StringBuffer sbf=new StringBuffer();
             for(int i=0;i<27;i++) {
-                if (i<level) {
+                if (i<=level) {
                     sbf.append(1);
                 }else{
                     sbf.append(0);
