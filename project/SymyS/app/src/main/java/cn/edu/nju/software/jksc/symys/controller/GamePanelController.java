@@ -397,7 +397,7 @@ public class GamePanelController {
         if(isPoint()){
             return ScoreCalculator.calculatePointingModeScore(bobbles);
         }else{
-            return ScoreCalculator.calculateNormalModeScore(col_size, 1, 0, 999);
+            return ScoreCalculator.calculateNormalModeScore(bobbles,max_step-step, 999);
         }
     }
 
