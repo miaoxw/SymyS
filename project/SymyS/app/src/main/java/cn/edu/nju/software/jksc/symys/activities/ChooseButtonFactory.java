@@ -124,6 +124,26 @@ public class ChooseButtonFactory {
         return status;
     }
 
+    public static void setCurrentLevelStatus(Context context,int level){
+        try{
+            Context chooseContext=context.createPackageContext("cn.edu.nju.software.jksc.symys.activities",Context.CONTEXT_IGNORE_SECURITY);
+            SharedPreferences sp=chooseContext.getSharedPreferences(saveFileName, Context.MODE_WORLD_READABLE);
+            SharedPreferences.Editor editor=sp.edit();
+            StringBuffer sbf=new StringBuffer();
+            for(int i=0;i<27;i++) {
+                if (level <= i) {
+                    sbf.append(1);
+                }else{
+                    sbf.append(0);
+                }
+            }
+            editor.putString("levelStatus",sbf.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     private static ArrayList<Integer> getButtonImgResUnlock(int viewId){
         ArrayList<Integer> res=new ArrayList<>();

@@ -21,6 +21,7 @@ public class MyPagerAdapter extends PagerAdapter {
     private Context context;
     private int currentSelectLevel=0;
     private int currentAccessLevel=0;
+    private int currentMaxLevel=-1;
 
     public MyPagerAdapter(List<View> mListView) {
         super();
@@ -65,11 +66,13 @@ public class MyPagerAdapter extends PagerAdapter {
                         HashMap<String,Object> gameData = new HashMap<>();
                         gameData.put("type","level");
                         gameData.put("level",currentSelectLevel);
+                        gameData.put("currentMax",currentMaxLevel);
                         intent.putExtra("gameData",gameData);
                         context.startActivity(intent);
                         Log.v("click",""+currentSelectLevel);
                     }
                     Log.v("click:","currentSelectLevel:"+currentSelectLevel+" access level:"+currentAccessLevel);
+                    Log.v("currentMaxLevel",""+currentMaxLevel);
 
                 }
             });
@@ -84,7 +87,8 @@ public class MyPagerAdapter extends PagerAdapter {
             for(int j=0;j<3;j++){
                 if(levelStatus[i][j]){
                     lastestIndex=arg1+i*3+j;
-                    currentAccessLevel=lastestIndex;
+                    currentAccessLevel=lastestIndex+1;
+                    currentMaxLevel=lastestIndex;
                     buttons.get(i*3+j).setBackgroundResource(unlockedRes.get(i*3+j));
                 }else{
                     if(arg1+i*3+j-1==lastestIndex){
