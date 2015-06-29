@@ -65,7 +65,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/score_home"
+            android:src="@drawable/score_level"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/score_next"
             android:layout_marginTop="20dp" />
