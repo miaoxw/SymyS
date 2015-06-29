@@ -1,5 +1,7 @@
 package cn.edu.nju.software.jksc.symys.algorithm;
 
+import android.util.Log;
+
 import java.util.Random;
 
 import cn.edu.nju.software.jksc.symys.common.Bobble;
@@ -8,7 +10,7 @@ import cn.edu.nju.software.jksc.symys.common.exception.ParameterInvalidException
 /**
  * Created by 缪晓伟 on 2015/6/27.
  */
-public class AlgorithmPointing extends GeneratingAlgorithm
+final class AlgorithmPointing extends GeneratingAlgorithm
 {
 	public AlgorithmPointing()
 	{
@@ -29,7 +31,14 @@ public class AlgorithmPointing extends GeneratingAlgorithm
 		Random random=new Random();
 		int x=random.nextInt(6);
 		int y=random.nextInt(6);
-		ret[x][y].mixWith(Bobble.getRandomPrimaryBobble(colorTypeCount));
+		Bobble newBobble=null;
+		do
+		{
+			newBobble=Bobble.getRandomPrimaryBobble(colorTypeCount);
+		}while(ret[x][y].equals(newBobble));
+		Log.d("pointing",ret[x][y].toString());
+		Log.d("pointing",newBobble.toString());
+		ret[x][y].mixWith(newBobble);
 
 		return ret;
 	}

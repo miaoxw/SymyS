@@ -16,8 +16,8 @@ public class ScoreCalculator
 	private static final double MIX_ALPHA=2.0/3;
 	private static final double TIME_ALPHA=0.85;
 
-	private static final int POINTING_MODE_PRIMARY_BOBBLE=1;
-	private static final int POINTING_MODE_MIX_BOBBLE=2;
+	private static final int POINTING_MODE_PRIMARY_BOBBLE=100;
+	private static final int POINTING_MODE_MIX_BOBBLE=200;
 
 	public static long calculatePointingModeScore(Bobble[][] src)
 	{
