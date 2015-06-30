@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -36,12 +35,15 @@ public class GamePanel extends Activity {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 "font/FZXY.ttf");
-
         if (isLevel()) {
-            int size = 4;
-            int axises = 1;
-            int colorSum = 3;
-            colors = MapGenerator.generate(size, axises, 0, 40, colorSum);
+            int level = (Integer) gameData.get("level");
+            int size = level/9 +4;
+            int axises = 1 << (level%9 ) / 3  ;
+            int colorSum = (size -1 ) >=4 ? 4:(size-1);
+            int step = 40 - level;
+            getIntent().putExtra("step",step);
+            getIntent().putExtra("axises",axises);
+            colors = MapGenerator.generate(size, axises, 0, step, colorSum);
             MyShowCase.show(this, R.layout.level_helping, "level-help");
 
             ViewGroup header = (ViewGroup) findViewById(R.id.header);

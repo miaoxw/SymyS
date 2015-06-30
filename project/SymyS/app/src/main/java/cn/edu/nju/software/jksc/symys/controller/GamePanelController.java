@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +64,9 @@ public class GamePanelController {
         this.activity = activity;
         layout = (ViewGroup) activity.findViewById(R.id.main_panel);
         this.gameData = gameData;
-        this.axises_target = 1;
-        this.max_step = 30;
+        this.axises_target =activity.getIntent().getIntExtra("axises",1);
+        this.max_step = activity.getIntent().getIntExtra("step",40);
+
     }
 
     public void init() {
