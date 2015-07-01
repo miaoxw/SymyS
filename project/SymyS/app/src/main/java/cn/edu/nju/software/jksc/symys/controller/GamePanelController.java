@@ -14,11 +14,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.game.UMGameAgent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.edu.nju.software.jksc.symys.R;
 import cn.edu.nju.software.jksc.symys.activities.ChooseButtonFactory;
+import cn.edu.nju.software.jksc.symys.activities.FailScore;
 import cn.edu.nju.software.jksc.symys.activities.LevelScoreActivity;
 import cn.edu.nju.software.jksc.symys.activities.ScoreActivity;
 import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
@@ -67,6 +70,7 @@ public class GamePanelController {
         this.axises_target =activity.getIntent().getIntExtra("axises",1);
         this.max_step = activity.getIntent().getIntExtra("step",40);
 
+
     }
 
     public void init() {
@@ -91,7 +95,7 @@ public class GamePanelController {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               done();
+                done();
             }
         });
         judge();
@@ -112,8 +116,26 @@ public class GamePanelController {
 
             int currentMax = (Integer) gameData.get("currentMax");
             gameData.put("currentMax", currentMax >= level ? currentMax : level);
+            if(currentMax < level){
+                UMGameAgent.setPlayerLevel(level);
+            }
             ChooseButtonFactory.setCurrentLevelStatus(activity, currentMax >= (level) ? currentMax : level);
+
+            UMGameAgent.finishLevel("第" + level + "关");
+
         }
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    private void fail(){
+        int level =(Integer)gameData.get("level");
+        UMGameAgent.failLevel("第"+level+"关");
+        Intent intent = new Intent(activity, FailScore.class);
+
+        intent.putExtra("score", getScore());
+        intent.putExtra("gameData", gameData);
+
         activity.startActivity(intent);
         activity.finish();
     }
@@ -381,6 +403,9 @@ public class GamePanelController {
                 imageButton.setImageResource(R.drawable.done_active);
                 imageButton.setClickable(true);
             } else {
+                if((max_step-step)<=0){
+                    fail();
+                }
                 imageButton.setImageResource(R.drawable.done);
                 imageButton.setClickable(false);
             }

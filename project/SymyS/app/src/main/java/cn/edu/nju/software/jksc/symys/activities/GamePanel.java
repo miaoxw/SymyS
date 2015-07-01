@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.umeng.analytics.game.UMGameAgent;
+
 import java.util.HashMap;
 
 import cn.edu.nju.software.jksc.symys.R;
@@ -31,6 +33,9 @@ public class GamePanel extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_panel);
+        UMGameAgent.setDebugMode(true);//设置输出运行时日志
+        UMGameAgent.init(this);
+
         Bobble[][] colors = null;
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
@@ -50,6 +55,7 @@ public class GamePanel extends Activity {
             View view = LayoutInflater.from(this).inflate(R.layout.level_header, null);
             header.addView(view);
 
+            UMGameAgent.startLevel("第" + level + "关");
 
             TextView tx = (TextView) findViewById(R.id.axis_lb);
             tx.setTypeface(custom_font);
@@ -80,6 +86,17 @@ public class GamePanel extends Activity {
         }
         gc = new GamePanelController(colors, gameData, this);
         gc.init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UMGameAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        UMGameAgent.onPause(this);
     }
 
     private boolean isLevel() {
