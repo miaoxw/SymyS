@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import cn.edu.nju.software.jksc.symys.activities.ScoreActivity;
 import cn.edu.nju.software.jksc.symys.algorithm.AxisChecker;
 import cn.edu.nju.software.jksc.symys.algorithm.ScoreCalculator;
 import cn.edu.nju.software.jksc.symys.common.Bobble;
+import cn.edu.nju.software.jksc.symys.utils.LevelUtity;
 
 import static android.util.Log.v;
 
@@ -70,7 +72,11 @@ public class GamePanelController {
         this.axises_target =activity.getIntent().getIntExtra("axises",1);
         this.max_step = activity.getIntent().getIntExtra("step",40);
 
+        if(!isPoint()){
+            int level = (Integer) gameData.get("level");
+            UMGameAgent.startLevel(LevelUtity.parseLevle(level));
 
+        }
     }
 
     public void init() {
@@ -121,7 +127,8 @@ public class GamePanelController {
             }
             ChooseButtonFactory.setCurrentLevelStatus(activity, currentMax >= (level) ? currentMax : level);
 
-            UMGameAgent.finishLevel("第" + level + "关");
+            Log.v("第" + level + "关","第" + level + "关");
+            UMGameAgent.finishLevel(LevelUtity.parseLevle(level));
 
         }
         activity.startActivity(intent);
@@ -130,7 +137,8 @@ public class GamePanelController {
 
     private void fail(){
         int level =(Integer)gameData.get("level");
-        UMGameAgent.failLevel("第"+level+"关");
+        Log.v("第" + level + "关","第" + level + "关");
+        UMGameAgent.failLevel(LevelUtity.parseLevle(level));
         Intent intent = new Intent(activity, FailScore.class);
 
         intent.putExtra("score", getScore());

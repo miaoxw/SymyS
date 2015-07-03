@@ -18,6 +18,7 @@ import cn.edu.nju.software.jksc.symys.R;
 import cn.edu.nju.software.jksc.symys.algorithm.MapGenerator;
 import cn.edu.nju.software.jksc.symys.common.Bobble;
 import cn.edu.nju.software.jksc.symys.controller.GamePanelController;
+import cn.edu.nju.software.jksc.symys.utils.LevelUtity;
 import cn.edu.nju.software.jksc.symys.utils.MyShowCase;
 
 /**
@@ -55,7 +56,6 @@ public class GamePanel extends Activity {
             View view = LayoutInflater.from(this).inflate(R.layout.level_header, null);
             header.addView(view);
 
-            UMGameAgent.startLevel("第" + level + "关");
 
             TextView tx = (TextView) findViewById(R.id.axis_lb);
             tx.setTypeface(custom_font);
